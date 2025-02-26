@@ -2,9 +2,14 @@ using UnityEngine;
 
 public class ResetBall : MonoBehaviour
 {
-    GameObject Ball;
+    public GameObject newBall;
+    public Transform ballSpawn;
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("test");
+        if (other.tag == "Ball")
+        {
+            Destroy(other.gameObject);
+            Instantiate(newBall, ballSpawn.position, ballSpawn.rotation);
+        }
     }
 }
