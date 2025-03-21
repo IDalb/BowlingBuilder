@@ -15,57 +15,59 @@ public class GameManager : MonoBehaviour
 
     private string playerTag = "MainCamera";
 
-    private bool gameStarted = false; //false : edit mode , true : throw ball mode
+    ScoreManager scoreManager;
 
     private bool isInLaunchZone = false; 
-    private bool hasBallInHand = false;
 
-    private int fallenPins = 0;
+    //private int fallenPins = 0;
+    //private int throwsNb = 3;
 
     private GameObject[] pins;
 
 
     void Start()
     {
-        //GameObject[] pins = GameObject.FindGameObjectsWithTag("Pin");
-        //PinsCount = pins.Length;
-        //Debug.Log(PinsCount);
+        scoreManager = FindFirstObjectByType<ScoreManager>();
+
+        GameObject[] pins = GameObject.FindGameObjectsWithTag("Pin");
+        scoreManager.setTotalPinsNb(pins.Length);
 
         ball.GetComponent<XRGrabInteractable>().selectEntered.AddListener(Grab);
         ball.GetComponent<XRGrabInteractable>().selectExited.AddListener(Release);
 
     }
 
+    
+
     public void PinFallen()
     {
         // Augmente le compteur des quilles tombées
-        fallenPins++;
-        Debug.Log("Une quille est tombée ! Total : " + fallenPins);
+        //fallenPins++;
+        scoreManager.IncreaseFallenPinsNb();
 
     }
 
     private void Release(SelectExitEventArgs arg0)
     {
         ball.GetComponent<Renderer>().material = neutralMaterialRef;
-        hasBallInHand = false;
+
+        if (isInLaunchZone)
+        {
+            //throwsNb++;
+            scoreManager.IncreaseThrowNumber();
+        }
+        else
+        {
+            //TODO bloquer quilles ou autre
+            Debug.Log("Lancer invalide");
+        }
     }
 
     private void Grab(SelectEnterEventArgs arg0)
     {
         ball.GetComponent<Renderer>().material = highlightedMaterialRef;
-        hasBallInHand = true;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (isInLaunchZone && hasBallInHand)
-        {
-            // TODO : enable throw
-            gameStarted = true;
-            //Debug.Log("Enable throw");
-        }
-    }
 
     // Détecter quand le joueur entre dans la zone de lancement
     void OnTriggerEnter(Collider other)

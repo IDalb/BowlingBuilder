@@ -5,9 +5,10 @@ public class pin : MonoBehaviour
 {
     private bool hasFallen = false;
 
-    private GameManager gameManager;
+    //private GameManager gameManager;
+    ScoreManager scoreManager;
 
-    private float fallenAngleThreshold = 30f; // Angle à partir duquel une quille est considérée comme tombée
+    private float fallenAngleThreshold = 15f; // Angle à partir duquel une quille est considérée comme tombée
 
     public Material redMaterialRef;
 
@@ -15,8 +16,8 @@ public class pin : MonoBehaviour
 
     void Start()
     {
-        // Trouve le GameManager dans la sc�ne
-        gameManager = GameObject.FindFirstObjectByType<GameManager>();
+        //gameManager = GameObject.FindFirstObjectByType<GameManager>();
+        scoreManager = FindFirstObjectByType<ScoreManager>();
 
         initialUp = transform.up;
         
@@ -29,23 +30,9 @@ public class pin : MonoBehaviour
         if (angle > fallenAngleThreshold && !hasFallen)
         {
             hasFallen = true;
-            gameManager.PinFallen(); // Informe le GameManager que cette quille est tombée
+            scoreManager.IncreaseFallenPinsNb();
             this.GetComponent<Renderer>().material = redMaterialRef;
         }
     }
 
-
-    // //------------------------ PAS FONCTIONNEL PB DE DETECTION AVEC LE SOL
-    //
-    // private void OnCollisionEnter(Collision collision)
-    // {
-    //     if (!isFallen && collision.gameObject.CompareTag("Ground"))
-    //     {
-    //         
-    //         gameManager.PinFallen(); // Informe le GameManager que cette quille est tomb�e
-    //         pinParent.GetComponent<Renderer>().material = redMaterialRef;
-    //         isFallen = true;
-    //
-    //     }
-    // }
 }
