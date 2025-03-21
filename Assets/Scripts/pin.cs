@@ -1,11 +1,10 @@
 using System;
 using UnityEngine;
 
-public class pin : MonoBehaviour
+public class Pin : MonoBehaviour
 {
     private bool hasFallen = false;
 
-    //private GameManager gameManager;
     ScoreManager scoreManager;
 
     private float fallenAngleThreshold = 15f; // Angle à partir duquel une quille est considérée comme tombée
@@ -16,7 +15,6 @@ public class pin : MonoBehaviour
 
     void Start()
     {
-        //gameManager = GameObject.FindFirstObjectByType<GameManager>();
         scoreManager = FindFirstObjectByType<ScoreManager>();
 
         initialUp = transform.up;
@@ -33,6 +31,12 @@ public class pin : MonoBehaviour
             scoreManager.IncreaseFallenPinsNb();
             this.GetComponent<Renderer>().material = redMaterialRef;
         }
+    }
+
+
+    public bool isFallen()
+    {
+        return hasFallen;
     }
 
 }

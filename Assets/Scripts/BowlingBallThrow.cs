@@ -9,9 +9,13 @@ public class BowlingBallThrow : MonoBehaviour
     private Rigidbody rb;
     private XRGrabInteractable grabInteractable;
 
+    private GameManager gameManager;
+
     private bool isHeld = false;
     void Start()
     {
+        gameManager = FindFirstObjectByType<GameManager>();
+
         rb = GetComponent<Rigidbody>();
         grabInteractable = GetComponent<XRGrabInteractable>();
 
@@ -39,16 +43,32 @@ public class BowlingBallThrow : MonoBehaviour
 
     void ThrowBall(SelectExitEventArgs arg0)
     {
-        // force de lancer
-        Vector3 throwDirection = arg0.interactorObject.transform.forward;
-        rb.AddForce(throwDirection * throwForce, ForceMode.VelocityChange);
+        if (gameManager.CanThrowBall())
+        {
+            // force de lancer
+            Vector3 throwDirection = arg0.interactorObject.transform.forward;
+            rb.AddForce(throwDirection * throwForce, ForceMode.VelocityChange);
 
 
-        // rotation (A FIX)
-        Quaternion controllerRotation = arg0.interactorObject.transform.rotation;
+            // rotation (A FIX)
+            Quaternion controllerRotation = arg0.interactorObject.transform.rotation;
         
-        Vector3 torque = controllerRotation * Vector3.forward * throwTorque;
-        rb.AddTorque(torque, ForceMode.Impulse);
+            Vector3 torque = controllerRotation * Vector3.forward * throwTorque;
+            rb.AddTorque(torque, ForceMode.Impulse);
+
+        }
+        else
+        {
+            Debug.Log("Go in the start zone");
+            
+            
+            // boule posee au sol ss mouvement
+            rb.angularVelocity = Vector3.zero;
+            rb.linearVelocity = Vector3.zero;
+
+            rb.isKinematic = true;
+
+        }
 
     }
 }

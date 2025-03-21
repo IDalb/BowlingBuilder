@@ -1,11 +1,11 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class GameManager : MonoBehaviour
 {
-
     
     public GameObject ball;
 
@@ -17,12 +17,9 @@ public class GameManager : MonoBehaviour
 
     ScoreManager scoreManager;
 
-    private bool isInLaunchZone = false; 
+    private bool isInLaunchZone = false;
 
-    //private int fallenPins = 0;
-    //private int throwsNb = 3;
-
-    private GameObject[] pins;
+    private List<Pin> pinsList = new List<Pin>();
 
 
     void Start()
@@ -30,6 +27,10 @@ public class GameManager : MonoBehaviour
         scoreManager = FindFirstObjectByType<ScoreManager>();
 
         GameObject[] pins = GameObject.FindGameObjectsWithTag("Pin");
+        foreach (GameObject pin in pins)
+        {
+            pinsList.Add(pin.GetComponent<Pin>());
+        }
         scoreManager.setTotalPinsNb(pins.Length);
 
         ball.GetComponent<XRGrabInteractable>().selectEntered.AddListener(Grab);
@@ -37,14 +38,21 @@ public class GameManager : MonoBehaviour
 
     }
 
-    
-
-    public void PinFallen()
+    public void RemoveFallenPins()
     {
-        // Augmente le compteur des quilles tombées
-        //fallenPins++;
-        scoreManager.IncreaseFallenPinsNb();
+        // On parcourt la liste à l'envers pour éviter des erreurs lors de la suppression
+        for (int i = pinsList.Count - 1; i >= 0; i--)
+        {
+            Pin pin = pinsList[i];
+            if (pin.isFallen())
+            {
+                // Détruire l'objet pin
+                Destroy(pin.gameObject);
 
+                // Retirer le pin de la liste
+                pinsList.RemoveAt(i);
+            }
+        }
     }
 
     private void Release(SelectExitEventArgs arg0)
@@ -53,12 +61,11 @@ public class GameManager : MonoBehaviour
 
         if (isInLaunchZone)
         {
-            //throwsNb++;
             scoreManager.IncreaseThrowNumber();
         }
         else
         {
-            //TODO bloquer quilles ou autre
+            //TODO bloquer quilles ou autre methode pour empecher le joueur de tirer
             Debug.Log("Lancer invalide");
         }
     }
@@ -89,6 +96,7 @@ public class GameManager : MonoBehaviour
         }
     }
     
+    public bool CanThrowBall() { return isInLaunchZone; }
 
 }
 
