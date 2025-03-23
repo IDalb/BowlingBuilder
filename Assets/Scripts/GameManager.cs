@@ -30,6 +30,9 @@ public class GameManager : MonoBehaviour
         foreach (GameObject pin in pins)
         {
             pinsList.Add(pin.GetComponent<Pin>());
+            pin.gameObject.GetComponent<CapsuleCollider>().enabled = false;
+            pin.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+            pin.gameObject.GetComponent<Rigidbody>().useGravity = false;
         }
         scoreManager.setTotalPinsNb(pins.Length);
 
@@ -82,6 +85,12 @@ public class GameManager : MonoBehaviour
         if (other.CompareTag(playerTag))
         {
             platform.GetComponent<Renderer>().material = highlightedMaterialRef;
+            foreach(Pin pin in pinsList)
+            {
+                pin.gameObject.GetComponent<CapsuleCollider>().enabled = true;
+                pin.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+                pin.gameObject.GetComponent<Rigidbody>().useGravity = true;
+            }
             isInLaunchZone = true;
         }
     }
@@ -92,6 +101,12 @@ public class GameManager : MonoBehaviour
         if (other.CompareTag(playerTag))
         {
             platform.GetComponent<Renderer>().material = neutralMaterialRef;
+            foreach (Pin pin in pinsList)
+            {
+                pin.gameObject.GetComponent<CapsuleCollider>().enabled = false;
+                pin.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+                pin.gameObject.GetComponent<Rigidbody>().useGravity = false;
+            }
             isInLaunchZone = false;
         }
     }
