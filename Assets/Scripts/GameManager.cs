@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class GameManager : MonoBehaviour
 {
-    
+    static int levelIndex = 1;
+
     public GameObject ball;
 
     public GameObject platform;
@@ -55,6 +58,11 @@ public class GameManager : MonoBehaviour
                 // Retirer le pin de la liste
                 pinsList.RemoveAt(i);
             }
+        }
+        if(pinsList.Count == 0)
+        {
+            levelIndex++;
+            SceneManager.LoadScene("level " + levelIndex.ToString());
         }
     }
 

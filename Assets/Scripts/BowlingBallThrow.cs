@@ -4,12 +4,10 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class BowlingBallThrow : MonoBehaviour
 {
-    private float throwForce = 0.5f;  // Force du lancer
-    private float throwTorque = 0.5f;  // Force du spin (rotation)
+    public float throwForce = 2;  // Force du lancer
+    public float throwTorque = 5;  // Force du spin (rotation)
     private Rigidbody rb;
     private XRGrabInteractable grabInteractable;
-
-    
 
     private GameManager gameManager;
 
@@ -27,8 +25,10 @@ public class BowlingBallThrow : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Apply torque to make the ball rotate in a specific direction (e.g., clockwise)
-
+        Vector3 velocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+        velocity.Normalize();
+        velocity *= throwForce;
+        rb.linearVelocity.Set(velocity.x, rb.linearVelocity.y, rb.linearVelocity.z);
     }
 
     void OnGrabStarted(SelectEnterEventArgs arg0)
@@ -56,10 +56,11 @@ public class BowlingBallThrow : MonoBehaviour
 
             Vector3 throwDirection = arg0.interactorObject.transform.forward;
             rb.AddForce(throwDirection * throwForce, ForceMode.VelocityChange);
-
             // rotation
             Vector3 topPosition = transform.position + Vector3.up * rb.transform.localScale.y;  // Top is in the +Y direction from the center of the sphere
+            Vector3 downPosition = transform.position - Vector3.up * rb.transform.localScale.y;  // Top is in the +Y direction from the center of the sphere
             rb.AddForceAtPosition(arg0.interactorObject.transform.up * throwTorque, topPosition, ForceMode.Force);
+           // rb.AddForceAtPosition(-arg0.interactorObject.transform.up * throwTorque, downPosition, ForceMode.Force);
 
 
             Debug.Log(rb.linearVelocity);
