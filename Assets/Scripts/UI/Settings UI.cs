@@ -31,4 +31,12 @@ public class SettingsUI : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
     }
+
+    public void ResetBowlPosition() {
+
+    }
+
+    public void GoToThrowArea() {
+        
+    }
 }
