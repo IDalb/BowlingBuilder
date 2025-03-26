@@ -1532,6 +1532,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ramp
       objectReference: {fileID: 0}
+    - target: {fileID: 6144028246929371484, guid: 12d54e05deb556f47b83ed1e97616c15, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6453025169120240330, guid: 12d54e05deb556f47b83ed1e97616c15, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.49
@@ -1571,6 +1575,14 @@ PrefabInstance:
     - target: {fileID: 6453025169120240330, guid: 12d54e05deb556f47b83ed1e97616c15, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6783584324525076360, guid: 12d54e05deb556f47b83ed1e97616c15, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6783584324525076360, guid: 12d54e05deb556f47b83ed1e97616c15, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1889,6 +1901,14 @@ PrefabInstance:
     - target: {fileID: 2378018791713212090, guid: 4658597966aecdf41b968ead3c330596, type: 3}
       propertyPath: m_SortingLayer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4617950717727261604, guid: 4658597966aecdf41b968ead3c330596, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5436296194977275248, guid: 4658597966aecdf41b968ead3c330596, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8703503608739596921, guid: 4658597966aecdf41b968ead3c330596, type: 3}
       propertyPath: m_Pivot.x

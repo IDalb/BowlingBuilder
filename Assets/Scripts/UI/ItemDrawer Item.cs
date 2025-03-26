@@ -4,8 +4,7 @@ public class ItemDrawerItem : MonoBehaviour
 {
     private void OnEnable()
     {
-        LeanTween.rotateZ(gameObject, 360, 2f).setLoopClamp();
-        float initialY = transform.position.y;
-        LeanTween.moveLocalZ(gameObject, initialY - 600f, 0.75f).setEaseInOutCirc().setLoopPingPong();
+        float initialZ = transform.position.z;
+        LeanTween.moveLocalZ(gameObject, initialZ - 0.35f, 1f).setEaseInOutSine().setLoopPingPong();
     }
 }
