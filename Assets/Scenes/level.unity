@@ -459,7 +459,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2249878511261199741, guid: 12d54e05deb556f47b83ed1e97616c15, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6453025169120240330, guid: 12d54e05deb556f47b83ed1e97616c15, type: 3}
       propertyPath: m_LocalPosition.x
@@ -826,6 +826,11 @@ Transform:
 --- !u!4 &441087508 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 202364688, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+  m_PrefabInstance: {fileID: 441087506}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &441087509 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 1767192439, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
   m_PrefabInstance: {fileID: 441087506}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &557438788
@@ -2427,12 +2432,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2604597635542245690, guid: b17a57b7c4aad1743a93be6177e22226, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4395505825311812955, guid: b17a57b7c4aad1743a93be6177e22226, type: 3}
       propertyPath: items.Array.data[0].amount
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4686730828132052208, guid: b17a57b7c4aad1743a93be6177e22226, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 441087509}
     - target: {fileID: 8870759991805750294, guid: b17a57b7c4aad1743a93be6177e22226, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

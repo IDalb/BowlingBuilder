@@ -16,12 +16,15 @@ public class SettingsUI : MonoBehaviour
     }
     
     private IEnumerator ResetLevelEnumerator() {
-        FadeUI.Instance.Fade(true);
-        yield return new WaitForSeconds(1.5f);
+        if (FadeUI.Instance != null)
+        {
+            FadeUI.Instance.Fade(true);
+            yield return new WaitForSeconds(1f);
+        }
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
     }
 
-    public void ResetBowlPosition() {
+    public void ResetBallPosition() {
         if (FindAnyObjectByType<ResetBall>() == null) return;
         FindAnyObjectByType<ResetBall>().ResetBallPosition();
     }
