@@ -4,22 +4,11 @@ using UnityEngine.SceneManagement;
 
 public class SettingsUI : MonoBehaviour
 {
-    // Hands
-    [SerializeField] private Transform leftHandTransform;
-    [SerializeField] private Transform rightHandTransform;
-    private bool invertedDominentHand = false;
-
-    public void SetHandTransforms(Transform left, Transform right) {
-        leftHandTransform = left;
-        rightHandTransform = right;
-    }
+    public UIManager uiManager;
 
     public void SwapDominentHand() {
-        if (leftHandTransform == null || rightHandTransform == null) return;
-        
-        invertedDominentHand = !invertedDominentHand;
-
-        transform.SetParent(invertedDominentHand ? rightHandTransform : leftHandTransform);
+        if (uiManager == null) return;
+        uiManager.SwapDominentHand();
     }
 
     public void ResetLevel() {
@@ -33,10 +22,23 @@ public class SettingsUI : MonoBehaviour
     }
 
     public void ResetBowlPosition() {
-
+        if (FindAnyObjectByType<ResetBall>() == null) return;
+        FindAnyObjectByType<ResetBall>().ResetBallPosition();
     }
 
     public void GoToThrowArea() {
         
+    }
+
+    public void ExitLevel()
+    {
+        StartCoroutine(ExitLevelEnumerator());
+    }
+
+    private IEnumerator ExitLevelEnumerator()
+    {
+        FadeUI.Instance.Fade(true);
+        yield return new WaitForSeconds(1.5f);
+        SceneManager.LoadSceneAsync("Main Menu");
     }
 }
