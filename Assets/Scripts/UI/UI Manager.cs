@@ -1,10 +1,14 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 public class UIManager : MonoBehaviour
 {
     public enum Hand { Left, Right };
-    public Hand dominentHand;
+    public Hand dominentHand { private get; set; }
+    public Hand GetDominentHand() { return dominentHand; }
+    public Hand GetNonDominentHand() { return dominentHand == Hand.Left ? Hand.Right : Hand.Left; }
 
     [Header("UI Elements")]
     [SerializeField] GameObject itemDrawer;
@@ -12,7 +16,9 @@ public class UIManager : MonoBehaviour
 
     [Header("Hands")]
     [SerializeField] Transform leftHand;
+    [SerializeField] XRBaseInteractor[] leftHandInteractors;
     [SerializeField] Transform rightHand;
+    [SerializeField] XRBaseInteractor[] rightHandInteractor;
 
     XRIDefaultInputActions inputAction;
 
@@ -29,7 +35,8 @@ public class UIManager : MonoBehaviour
         if (settingsMenu.GetComponent<SettingsUI>() != null)
             settingsMenu.GetComponent<SettingsUI>().uiManager = this;
 
-        ReparentUI(dominentHand == Hand.Left ? Hand.Right : Hand.Left);
+        dominentHand = Hand.Right;
+        ReparentUI(GetNonDominentHand());
     }
 
     private void OnEnable()
@@ -54,14 +61,24 @@ public class UIManager : MonoBehaviour
         inputAction.Disable();
     }
 
+    void SetMenuActive(GameObject menu, bool state, Hand hand) {
+        menu.SetActive(state);
+        if (hand == Hand.Left)
+            foreach (var interactor in leftHandInteractors)
+                interactor.gameObject.SetActive(!state);
+        else if (hand == Hand.Right)
+            foreach (var interactor in rightHandInteractor)
+                interactor.gameObject.SetActive(!state);
+    }
+
     void ToggleItemDrawer(Hand hand)
     {
         if (dominentHand == hand) return;
 
         if (settingsMenu.activeInHierarchy)
-            settingsMenu.SetActive(false);
+            SetMenuActive(settingsMenu, false, hand);
 
-        itemDrawer.SetActive(!itemDrawer.activeInHierarchy);
+        SetMenuActive(itemDrawer, !itemDrawer.activeInHierarchy, hand);
     }
 
     void ToggleSettingsMenu(Hand hand)
@@ -69,18 +86,22 @@ public class UIManager : MonoBehaviour
         if (dominentHand == hand) return;
 
         if (itemDrawer.activeInHierarchy)
-            itemDrawer.SetActive(false);
+            SetMenuActive(itemDrawer, false, hand);
 
-        settingsMenu.SetActive(!settingsMenu.activeInHierarchy);
+        SetMenuActive(settingsMenu, !settingsMenu.activeInHierarchy, hand);
     }
 
 
     public void SwapDominentHand()
     {
-        // Parents the UI to the NON-dominent hand
-        ReparentUI(dominentHand);
-
+        SetMenuActive(settingsMenu, false, GetNonDominentHand());
+        
         dominentHand = dominentHand == Hand.Left ? Hand.Right : Hand.Left;
+
+        // Parents the UI to the NON-dominent hand
+        ReparentUI(GetNonDominentHand());
+        SetMenuActive(settingsMenu, true, GetNonDominentHand());
+
     }
 
     private void ReparentUI(Hand hand)
