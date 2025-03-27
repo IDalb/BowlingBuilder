@@ -40,9 +40,17 @@ public class ItemDrawerItem : MonoBehaviour
 
     public void GrabObject(SelectEnterEventArgs args)
     {
-        args.interactableObject.transform.GetComponent<XRGrabInteractable>().selectEntered.RemoveListener(GrabObject);
-        args.interactableObject.transform.GetComponent<XRGrabInteractable>().selectExited.AddListener(UngrabObject);
+        Transform obj = args.interactableObject.transform;
+        obj.GetComponent<XRGrabInteractable>().selectEntered.RemoveListener(GrabObject);
+        obj.GetComponent<XRGrabInteractable>().selectExited.AddListener(UngrabObject);
 
+        // Rescale the object upon pickup
+        const float rescaleFactor = 25;
+
+        LeanTween.value(obj.gameObject, obj.localScale, obj.localScale * rescaleFactor, 0.5f)
+        .setEaseOutQuad()
+        .setOnUpdate((Vector3 ctx) => { obj.GetComponent<XRGrabInteractable>().SetTargetLocalScale(ctx); });
+            
         item.amount --;
         InstantiateObject();
     }
