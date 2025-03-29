@@ -42,6 +42,13 @@ public class GameManager : MonoBehaviour
         ball.GetComponent<XRGrabInteractable>().selectEntered.AddListener(Grab);
         ball.GetComponent<XRGrabInteractable>().selectExited.AddListener(Release);
 
+        Scene currentScene = SceneManager.GetActiveScene();
+
+        // Get the name of the current scene
+        string sceneName = currentScene.name;
+        int index = sceneName.IndexOf(" ") + 1;
+        string levelNumber = sceneName.Substring(index);
+        levelIndex = int.Parse(levelNumber);
     }
 
     public void RemoveFallenPins()
