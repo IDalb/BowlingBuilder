@@ -6,10 +6,8 @@ using UnityEngine.XR.Interaction.Toolkit.Interactors;
 public class UIManager : MonoBehaviour
 {
     public enum Hand { Left, Right };
-    public Hand dominentHand { private get; set; }
-    public Hand GetDominentHand() { return dominentHand; }
-    public Hand GetNonDominentHand() { return dominentHand == Hand.Left ? Hand.Right : Hand.Left; }
-
+    private Hand? currentHand = null;
+    
     [Header("UI Elements")]
     [SerializeField] GameObject itemDrawer;
     [SerializeField] GameObject settingsMenu;
@@ -30,33 +28,32 @@ public class UIManager : MonoBehaviour
         inputAction = new XRIDefaultInputActions();
     }
 
-    private void Start()
-    {
-        if (settingsMenu.GetComponent<SettingsUI>() != null)
-            settingsMenu.GetComponent<SettingsUI>().uiManager = this;
-
-        dominentHand = Hand.Right;
-        ReparentUI(GetNonDominentHand());
-    }
-
     private void OnEnable()
     {
-        inputAction.XRILeftInteraction.OpenDrawer.performed += ctx => ToggleItemDrawer(Hand.Left);
-        inputAction.XRILeftInteraction.OpenSettings.performed += ctx => ToggleSettingsMenu(Hand.Left);
+        inputAction.XRILeftInteraction.OpenDrawer.performed += ctx => ToggleItemDrawer(Hand.Left, true);
+        inputAction.XRILeftInteraction.OpenDrawer.canceled += ctx => ToggleItemDrawer(Hand.Left, false);
+        inputAction.XRILeftInteraction.OpenSettings.performed += ctx => ToggleSettingsMenu(Hand.Left, true);
+        inputAction.XRILeftInteraction.OpenSettings.canceled += ctx => ToggleSettingsMenu(Hand.Left, false);
 
-        inputAction.XRIRightInteraction.OpenDrawer.performed += ctx => ToggleItemDrawer(Hand.Right);
-        inputAction.XRIRightInteraction.OpenSettings.performed += ctx => ToggleSettingsMenu(Hand.Right);
+        inputAction.XRIRightInteraction.OpenDrawer.performed += ctx => ToggleItemDrawer(Hand.Right, true);
+        inputAction.XRIRightInteraction.OpenDrawer.canceled += ctx => ToggleItemDrawer(Hand.Right, false);
+        inputAction.XRIRightInteraction.OpenSettings.performed += ctx => ToggleSettingsMenu(Hand.Right, true);
+        inputAction.XRIRightInteraction.OpenSettings.canceled += ctx => ToggleSettingsMenu(Hand.Right, false);
 
         inputAction.Enable();
     }
 
     private void OnDisable()
     {
-        inputAction.XRILeftInteraction.OpenDrawer.performed -= ctx => ToggleItemDrawer(Hand.Left);
-        inputAction.XRILeftInteraction.OpenSettings.performed -= ctx => ToggleSettingsMenu(Hand.Left);
+        inputAction.XRILeftInteraction.OpenDrawer.performed -= ctx => ToggleItemDrawer(Hand.Left, true);
+        inputAction.XRILeftInteraction.OpenDrawer.canceled -= ctx => ToggleItemDrawer(Hand.Left, false);
+        inputAction.XRILeftInteraction.OpenSettings.performed -= ctx => ToggleSettingsMenu(Hand.Left, true);
+        inputAction.XRILeftInteraction.OpenSettings.canceled -= ctx => ToggleSettingsMenu(Hand.Left, false);
 
-        inputAction.XRIRightInteraction.OpenDrawer.performed -= ctx => ToggleItemDrawer(Hand.Right);
-        inputAction.XRIRightInteraction.OpenSettings.performed -= ctx => ToggleSettingsMenu(Hand.Right);
+        inputAction.XRIRightInteraction.OpenDrawer.performed -= ctx => ToggleItemDrawer(Hand.Right, true);
+        inputAction.XRIRightInteraction.OpenDrawer.canceled -= ctx => ToggleItemDrawer(Hand.Right, false);
+        inputAction.XRIRightInteraction.OpenSettings.performed -= ctx => ToggleSettingsMenu(Hand.Right, true);
+        inputAction.XRIRightInteraction.OpenSettings.canceled -= ctx => ToggleSettingsMenu(Hand.Right, false);
 
         inputAction.Disable();
     }
@@ -71,37 +68,24 @@ public class UIManager : MonoBehaviour
                 interactor.gameObject.SetActive(!state);
     }
 
-    void ToggleItemDrawer(Hand hand)
+    void ToggleItemDrawer(Hand hand, bool state)
     {
-        if (dominentHand == hand) return;
+        if (currentHand != null && currentHand != hand) return;
+        if (settingsMenu.activeInHierarchy) return;
+        currentHand = state ? hand : null;
+        ReparentUI(hand);
 
-        if (settingsMenu.activeInHierarchy)
-            SetMenuActive(settingsMenu, false, hand);
-
-        SetMenuActive(itemDrawer, !itemDrawer.activeInHierarchy, hand);
+        SetMenuActive(itemDrawer, state, hand);
     }
 
-    void ToggleSettingsMenu(Hand hand)
+    void ToggleSettingsMenu(Hand hand, bool state)
     {
-        if (dominentHand == hand) return;
+        if (currentHand != null && currentHand != hand) return;
+        if (itemDrawer.activeInHierarchy) return;
+        currentHand = state ? hand : null;
+        ReparentUI(hand);
 
-        if (itemDrawer.activeInHierarchy)
-            SetMenuActive(itemDrawer, false, hand);
-
-        SetMenuActive(settingsMenu, !settingsMenu.activeInHierarchy, hand);
-    }
-
-
-    public void SwapDominentHand()
-    {
-        SetMenuActive(settingsMenu, false, GetNonDominentHand());
-        
-        dominentHand = dominentHand == Hand.Left ? Hand.Right : Hand.Left;
-
-        // Parents the UI to the NON-dominent hand
-        ReparentUI(GetNonDominentHand());
-        SetMenuActive(settingsMenu, true, GetNonDominentHand());
-
+        SetMenuActive(settingsMenu, state, hand);
     }
 
     private void ReparentUI(Hand hand)

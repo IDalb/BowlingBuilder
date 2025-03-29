@@ -4,13 +4,6 @@ using UnityEngine.SceneManagement;
 
 public class SettingsUI : MonoBehaviour
 {
-    public UIManager uiManager;
-
-    public void SwapDominentHand() {
-        if (uiManager == null) return;
-        uiManager.SwapDominentHand();
-    }
-
     public void ResetLevel() {
         StartCoroutine(ResetLevelEnumerator());
     }
