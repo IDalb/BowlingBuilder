@@ -1295,6 +1295,17 @@
                 },
                 {
                     "name": "",
+                    "id": "d9dd4c10-a052-498d-9ad2-dded7fc4b03c",
+                    "path": "<XRController>{LeftHand}/triggerPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Open Drawer",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "402e71ac-6e23-4560-8b9c-f517206d6003",
                     "path": "<XRController>{LeftHand}/primaryButton",
                     "interactions": "",
@@ -2177,6 +2188,17 @@
                     "name": "",
                     "id": "600e1495-6d02-4437-b5f7-22d6c45294ec",
                     "path": "<XRController>{RightHand}/secondaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Open Drawer",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "355ab8c3-f2ac-4f80-94d4-1aa91c86a356",
+                    "path": "<XRController>{RightHand}/triggerPressed",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
