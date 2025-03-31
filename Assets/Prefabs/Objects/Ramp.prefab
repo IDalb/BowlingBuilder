@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 6144028246929371484}
   - component: {fileID: 3115405850603002679}
   - component: {fileID: 7179598292787603660}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ramp
-  m_TagString: Untagged
+  m_TagString: Ressource
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -132,7 +132,7 @@ MonoBehaviour:
   m_InteractionManager: {fileID: 0}
   m_Colliders: []
   m_InteractionLayers:
-    m_Bits: 1
+    m_Bits: 3
   m_DistanceCalculationMode: 1
   m_SelectMode: 1
   m_FocusMode: 1

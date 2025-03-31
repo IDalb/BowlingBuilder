@@ -100,7 +100,12 @@ public class GameManager : MonoBehaviour
         if (other.CompareTag(playerTag))
         {
             platform.GetComponent<Renderer>().material = highlightedMaterialRef;
-            foreach(Pin pin in pinsList)
+            GameObject[] ressources = GameObject.FindGameObjectsWithTag("Ressource");
+            foreach(GameObject constructionObject in ressources)
+            {
+                constructionObject.layer = LayerMask.NameToLayer("ConstructionBlock");
+            }
+            foreach (Pin pin in pinsList)
             {
                 pin.gameObject.GetComponent<CapsuleCollider>().enabled = true;
                 pin.gameObject.GetComponent<Rigidbody>().isKinematic = false;
@@ -115,6 +120,11 @@ public class GameManager : MonoBehaviour
     {
         if (other.CompareTag(playerTag))
         {
+            GameObject[] ressources = GameObject.FindGameObjectsWithTag("Ressource");
+            foreach (GameObject constructionObject in ressources)
+            {
+                constructionObject.layer = LayerMask.NameToLayer("Default");
+            }
             platform.GetComponent<Renderer>().material = neutralMaterialRef;
             foreach (Pin pin in pinsList)
             {
