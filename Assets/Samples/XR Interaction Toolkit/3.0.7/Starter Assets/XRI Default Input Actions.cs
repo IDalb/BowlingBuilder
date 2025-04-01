@@ -2580,7 +2580,7 @@ public partial class @XRIDefaultInputActions: IInputActionCollection2, IDisposab
                     ""name"": """",
                     ""id"": ""31d838df-4d4e-4c16-a373-b9c07d9d2e2a"",
                     ""path"": ""<XRController>{RightHand}/{Primary2DAxis}"",
-                    ""interactions"": ""Sector(directions=12,sweepBehavior=1),Sector(directions=2,sweepBehavior=2)"",
+                    ""interactions"": ""Sector(directions=12,sweepBehavior=1)"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Snap Turn"",
