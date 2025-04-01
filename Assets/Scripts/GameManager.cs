@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
     ScoreManager scoreManager;
 
     private bool isInLaunchZone = false;
+    private bool isBallHeld = false;
+    public void setIsBallHeld(bool res) { isBallHeld = res; }
 
     private List<Pin> pinsList = new List<Pin>();
 
@@ -49,6 +51,32 @@ public class GameManager : MonoBehaviour
         int index = sceneName.IndexOf(" ") + 1;
         string levelNumber = sceneName.Substring(index);
         levelIndex = int.Parse(levelNumber);
+    }
+
+    public bool checkPinsCollisionsWithObjets()
+    {
+        if (isInLaunchZone && isBallHeld) 
+        {
+            // activer la gravité des quilles
+            foreach (Pin pin in pinsList)
+            {
+                pin.gameObject.GetComponent<CapsuleCollider>().enabled = true;
+                pin.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+                pin.gameObject.GetComponent<Rigidbody>().useGravity = true;
+            }
+            return true;
+        }
+        else
+        {
+            // gravité des quilles desactivées
+            foreach (Pin pin in pinsList)
+            {
+                pin.gameObject.GetComponent<CapsuleCollider>().enabled = false;
+                pin.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+                pin.gameObject.GetComponent<Rigidbody>().useGravity = false;
+            }
+            return false;
+        }
     }
 
     public void RemoveFallenPins()
@@ -83,7 +111,6 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            //TODO bloquer quilles ou autre methode pour empecher le joueur de tirer
             Debug.Log("Lancer invalide");
         }
     }
@@ -105,13 +132,8 @@ public class GameManager : MonoBehaviour
             {
                 constructionObject.layer = LayerMask.NameToLayer("ConstructionBlock");
             }
-            foreach (Pin pin in pinsList)
-            {
-                pin.gameObject.GetComponent<CapsuleCollider>().enabled = true;
-                pin.gameObject.GetComponent<Rigidbody>().isKinematic = false;
-                pin.gameObject.GetComponent<Rigidbody>().useGravity = true;
-            }
             isInLaunchZone = true;
+            checkPinsCollisionsWithObjets();
         }
     }
 
@@ -126,13 +148,9 @@ public class GameManager : MonoBehaviour
                 constructionObject.layer = LayerMask.NameToLayer("Default");
             }
             platform.GetComponent<Renderer>().material = neutralMaterialRef;
-            foreach (Pin pin in pinsList)
-            {
-                pin.gameObject.GetComponent<CapsuleCollider>().enabled = false;
-                pin.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-                pin.gameObject.GetComponent<Rigidbody>().useGravity = false;
-            }
+            
             isInLaunchZone = false;
+            checkPinsCollisionsWithObjets();
         }
     }
     

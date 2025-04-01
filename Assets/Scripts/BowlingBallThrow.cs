@@ -11,7 +11,7 @@ public class BowlingBallThrow : MonoBehaviour
 
     private GameManager gameManager;
 
-    private bool isHeld = false;
+    //private bool isHeld = false;
     void Start()
     {
         gameManager = FindFirstObjectByType<GameManager>();
@@ -35,14 +35,14 @@ public class BowlingBallThrow : MonoBehaviour
     {
         // Lorsque la boule est attrapée, désactiver la physique (Rigidbody) pour la contrôler manuellement.
         rb.isKinematic = true;
-        isHeld = true;
+        gameManager.setIsBallHeld(true);
     }
 
     void OnGrabEnded(SelectExitEventArgs arg0)
     {
         // Lorsque la boule est relâchée, activer la physique pour permettre le lancer avec force.
         rb.isKinematic = false;
-        isHeld = false;
+        gameManager.setIsBallHeld(false);
 
         // Appliquer la force et la rotation pour le lancer.
         ThrowBall(arg0);
