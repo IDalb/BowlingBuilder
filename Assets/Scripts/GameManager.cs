@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
         levelIndex = int.Parse(levelNumber);
     }
 
-    public bool checkPinsCollisionsWithObjets()
+    public bool activateLevelPhysics()
     {
         if (isInLaunchZone && isBallHeld) 
         {
@@ -133,7 +133,7 @@ public class GameManager : MonoBehaviour
                 constructionObject.layer = LayerMask.NameToLayer("ConstructionBlock");
             }
             isInLaunchZone = true;
-            checkPinsCollisionsWithObjets();
+            activateLevelPhysics();
         }
     }
 
@@ -150,7 +150,7 @@ public class GameManager : MonoBehaviour
             platform.GetComponent<Renderer>().material = neutralMaterialRef;
             
             isInLaunchZone = false;
-            checkPinsCollisionsWithObjets();
+            activateLevelPhysics();
         }
     }
     
