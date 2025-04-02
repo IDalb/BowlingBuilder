@@ -35,9 +35,6 @@ public class GameManager : MonoBehaviour
         foreach (GameObject pin in pins)
         {
             pinsList.Add(pin.GetComponent<Pin>());
-            pin.gameObject.GetComponent<CapsuleCollider>().enabled = false;
-            pin.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-            pin.gameObject.GetComponent<Rigidbody>().useGravity = false;
         }
         scoreManager.setTotalPinsNb(pins.Length);
 
@@ -64,9 +61,6 @@ public class GameManager : MonoBehaviour
             foreach (Pin pin in pinsList)
             {
                 pin.gameObject.layer = LayerMask.NameToLayer("ActivePin");
-                //pin.gameObject.GetComponent<CapsuleCollider>().enabled = true;
-                //pin.gameObject.GetComponent<Rigidbody>().isKinematic = false;
-                //pin.gameObject.GetComponent<Rigidbody>().useGravity = true;
             }
             return true;
         }
@@ -76,10 +70,6 @@ public class GameManager : MonoBehaviour
             foreach (Pin pin in pinsList)
             {
                 pin.gameObject.layer = LayerMask.NameToLayer("InactivePin");
-
-                //pin.gameObject.GetComponent<CapsuleCollider>().enabled = false;
-                //pin.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-                //pin.gameObject.GetComponent<Rigidbody>().useGravity = false;
             }
             return false;
         }
@@ -133,13 +123,7 @@ public class GameManager : MonoBehaviour
         if (other.CompareTag(playerTag))
         {
             platform.GetComponent<Renderer>().material = highlightedMaterialRef;
-            // GameObject[] ressources = GameObject.FindGameObjectsWithTag("Ressource");
 
-            //// desactive les collisions entre blocs et quilles
-            //foreach(GameObject constructionObject in ressources)
-            //{
-            //    constructionObject.layer = LayerMask.NameToLayer("ConstructionBlock");
-            //}
             isInLaunchZone = true;
             
         }
@@ -150,14 +134,8 @@ public class GameManager : MonoBehaviour
     {
         if (other.CompareTag(playerTag))
         {
-            //GameObject[] ressources = GameObject.FindGameObjectsWithTag("Ressource");
 
-            //// active le grab des blocs
-            //foreach (GameObject constructionObject in ressources)
-            //{
-            //    constructionObject.layer = LayerMask.NameToLayer("Default");
-            //}
-            //platform.GetComponent<Renderer>().material = neutralMaterialRef;
+            platform.GetComponent<Renderer>().material = neutralMaterialRef;
             
             isInLaunchZone = false;
         }
