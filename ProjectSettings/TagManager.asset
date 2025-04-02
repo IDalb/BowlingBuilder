@@ -19,8 +19,8 @@ TagManager:
   - ConstructionBlock
   - Ball
   - floor
-  - 
-  - 
+  - ActivePin
+  - InactivePin
   - 
   - 
   - 

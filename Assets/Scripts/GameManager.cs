@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
 
     private bool isInLaunchZone = false;
     private bool isBallHeld = false;
-    public void setIsBallHeld(bool res) { isBallHeld = res; }
+    public void setIsBallHeld(bool res) {isBallHeld = res; }
 
     private List<Pin> pinsList = new List<Pin>();
 
@@ -50,19 +50,23 @@ public class GameManager : MonoBehaviour
         string sceneName = currentScene.name;
         int index = sceneName.IndexOf(" ") + 1;
         string levelNumber = sceneName.Substring(index);
-        levelIndex = int.Parse(levelNumber);
+        if (levelNumber != sceneName)
+        {
+            levelIndex = int.Parse(levelNumber);
+        }
     }
 
-    public bool activateLevelPhysics()
+    public bool toggleLevelPhysics(bool enable)
     {
-        if (isInLaunchZone && isBallHeld) 
+        if (enable) 
         {
             // activer la gravité des quilles
             foreach (Pin pin in pinsList)
             {
-                pin.gameObject.GetComponent<CapsuleCollider>().enabled = true;
-                pin.gameObject.GetComponent<Rigidbody>().isKinematic = false;
-                pin.gameObject.GetComponent<Rigidbody>().useGravity = true;
+                pin.gameObject.layer = LayerMask.NameToLayer("ActivePin");
+                //pin.gameObject.GetComponent<CapsuleCollider>().enabled = true;
+                //pin.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+                //pin.gameObject.GetComponent<Rigidbody>().useGravity = true;
             }
             return true;
         }
@@ -71,9 +75,11 @@ public class GameManager : MonoBehaviour
             // gravité des quilles desactivées
             foreach (Pin pin in pinsList)
             {
-                pin.gameObject.GetComponent<CapsuleCollider>().enabled = false;
-                pin.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-                pin.gameObject.GetComponent<Rigidbody>().useGravity = false;
+                pin.gameObject.layer = LayerMask.NameToLayer("InactivePin");
+
+                //pin.gameObject.GetComponent<CapsuleCollider>().enabled = false;
+                //pin.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+                //pin.gameObject.GetComponent<Rigidbody>().useGravity = false;
             }
             return false;
         }
@@ -127,13 +133,15 @@ public class GameManager : MonoBehaviour
         if (other.CompareTag(playerTag))
         {
             platform.GetComponent<Renderer>().material = highlightedMaterialRef;
-            GameObject[] ressources = GameObject.FindGameObjectsWithTag("Ressource");
-            foreach(GameObject constructionObject in ressources)
-            {
-                constructionObject.layer = LayerMask.NameToLayer("ConstructionBlock");
-            }
+            // GameObject[] ressources = GameObject.FindGameObjectsWithTag("Ressource");
+
+            //// desactive les collisions entre blocs et quilles
+            //foreach(GameObject constructionObject in ressources)
+            //{
+            //    constructionObject.layer = LayerMask.NameToLayer("ConstructionBlock");
+            //}
             isInLaunchZone = true;
-            activateLevelPhysics();
+            
         }
     }
 
@@ -142,15 +150,16 @@ public class GameManager : MonoBehaviour
     {
         if (other.CompareTag(playerTag))
         {
-            GameObject[] ressources = GameObject.FindGameObjectsWithTag("Ressource");
-            foreach (GameObject constructionObject in ressources)
-            {
-                constructionObject.layer = LayerMask.NameToLayer("Default");
-            }
-            platform.GetComponent<Renderer>().material = neutralMaterialRef;
+            //GameObject[] ressources = GameObject.FindGameObjectsWithTag("Ressource");
+
+            //// active le grab des blocs
+            //foreach (GameObject constructionObject in ressources)
+            //{
+            //    constructionObject.layer = LayerMask.NameToLayer("Default");
+            //}
+            //platform.GetComponent<Renderer>().material = neutralMaterialRef;
             
             isInLaunchZone = false;
-            activateLevelPhysics();
         }
     }
     

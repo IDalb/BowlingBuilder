@@ -36,6 +36,9 @@ public class BowlingBallThrow : MonoBehaviour
         // Lorsque la boule est attrapée, désactiver la physique (Rigidbody) pour la contrôler manuellement.
         rb.isKinematic = true;
         gameManager.setIsBallHeld(true);
+
+        gameManager.toggleLevelPhysics(false); // desactiver physique quilles
+
     }
 
     void OnGrabEnded(SelectExitEventArgs arg0)
@@ -60,8 +63,9 @@ public class BowlingBallThrow : MonoBehaviour
             Vector3 topPosition = transform.position + Vector3.up * rb.transform.localScale.y;  // Top is in the +Y direction from the center of the sphere
             Vector3 downPosition = transform.position - Vector3.up * rb.transform.localScale.y;  // Top is in the +Y direction from the center of the sphere
             rb.AddForceAtPosition(arg0.interactorObject.transform.up * throwTorque, topPosition, ForceMode.Force);
-           // rb.AddForceAtPosition(-arg0.interactorObject.transform.up * throwTorque, downPosition, ForceMode.Force);
+            // rb.AddForceAtPosition(-arg0.interactorObject.transform.up * throwTorque, downPosition, ForceMode.Force);
 
+            gameManager.toggleLevelPhysics(true); // activer physique quilles
 
             Debug.Log(rb.linearVelocity);
         }

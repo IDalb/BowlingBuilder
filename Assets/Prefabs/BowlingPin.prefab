@@ -22,15 +22,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b7101ee28ce480147bc5fdeed3725ac2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.259
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b7101ee28ce480147bc5fdeed3725ac2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.431
+      value: -0.47
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b7101ee28ce480147bc5fdeed3725ac2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.292
+      value: -1.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b7101ee28ce480147bc5fdeed3725ac2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -42,11 +42,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b7101ee28ce480147bc5fdeed3725ac2, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b7101ee28ce480147bc5fdeed3725ac2, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b7101ee28ce480147bc5fdeed3725ac2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -63,6 +63,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: b7101ee28ce480147bc5fdeed3725ac2, type: 3}
       propertyPath: m_Name
       value: BowlingPin
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b7101ee28ce480147bc5fdeed3725ac2, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b7101ee28ce480147bc5fdeed3725ac2, type: 3}
       propertyPath: m_TagString
@@ -103,10 +107,10 @@ Rigidbody:
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 129
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
