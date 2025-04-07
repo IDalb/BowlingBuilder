@@ -8,7 +8,7 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class GameManager : MonoBehaviour
 {
-    static int levelIndex = 1;
+    public static int levelIndex = 1;
 
     public GameObject ball;
 
@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
 
     private string playerTag = "MainCamera";
 
-    ScoreManager scoreManager;
+    public ScoreManager scoreManager;
 
     private bool isInLaunchZone = false;
     private bool isBallHeld = false;
@@ -93,6 +93,13 @@ public class GameManager : MonoBehaviour
         if(pinsList.Count == 0)
         {
             levelIndex++;
+#if UNITY_EDITOR
+            GameObject telemetry = GameObject.FindGameObjectWithTag("Telemetry");
+            if (telemetry)
+            {
+                telemetry.GetComponent<Telemetry>().SaveData();
+            }
+#endif
             SceneManager.LoadScene("level " + levelIndex.ToString());
         }
     }

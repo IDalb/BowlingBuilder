@@ -14,6 +14,13 @@ public class SettingsUI : MonoBehaviour
             FadeUI.Instance.Fade(true);
             yield return new WaitForSeconds(1f);
         }
+#if UNITY_EDITOR
+        GameObject telemetry = GameObject.FindGameObjectWithTag("Telemetry");
+        if (telemetry)
+        {
+            telemetry.GetComponent<Telemetry>().SaveData();
+        }
+#endif
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
     }
 
@@ -33,6 +40,13 @@ public class SettingsUI : MonoBehaviour
 
     private IEnumerator ExitLevelEnumerator()
     {
+#if UNITY_EDITOR
+        GameObject telemetry = GameObject.FindGameObjectWithTag("Telemetry");
+        if (telemetry)
+        {
+            telemetry.GetComponent<Telemetry>().SaveData();
+        }
+#endif
         FadeUI.Instance.Fade(true);
         yield return new WaitForSeconds(1.5f);
         SceneManager.LoadSceneAsync("Main Menu");

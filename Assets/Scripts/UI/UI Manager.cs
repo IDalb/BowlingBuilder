@@ -86,6 +86,14 @@ public class UIManager : MonoBehaviour
         ReparentUI(hand);
 
         SetMenuActive(settingsMenu, state, hand);
+
+#if UNITY_EDITOR
+        GameObject telemetry = GameObject.FindGameObjectWithTag("Telemetry");
+        if (telemetry)
+        {
+            telemetry.GetComponent<Telemetry>().SetItemDrawerOpen();
+        }
+#endif
     }
 
     private void ReparentUI(Hand hand)

@@ -11,7 +11,15 @@ public class ScoreManager : MonoBehaviour
     private int throwsNb = 0;
     private int fallenPinsNb = 0;
 
+    public int GetThrowCount()
+    {
+        return throwsNb;
+    }
 
+    public int GetFallenPinCount()
+    {
+        return fallenPinsNb;
+    }
 
     public void IncreaseThrowNumber()
     {

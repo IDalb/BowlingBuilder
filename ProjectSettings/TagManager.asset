@@ -9,6 +9,7 @@ TagManager:
   - Pin
   - Ground
   - Ressource
+  - Telemetry
   layers:
   - Default
   - TransparentFX

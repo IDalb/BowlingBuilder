@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6144028246929371484}
   - component: {fileID: 3115405850603002679}
   - component: {fileID: 7179598292787603660}
+  - component: {fileID: 5065184443492612791}
   m_Layer: 6
   m_Name: Ramp
   m_TagString: Ressource
@@ -284,3 +285,15 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 6788383922943872000, guid: ab3a79eba4de4be0ad5fead9fb858190, type: 3}
+--- !u!114 &5065184443492612791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2249878511261199741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ad92836318c29b44833e98ae232d759, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

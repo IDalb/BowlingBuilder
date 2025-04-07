@@ -1,0 +1,8 @@
+level;2
+ballThrow;ThrowsNb (TMPro.TextMeshProUGUI)
+totalPin;TotalNbPins (TMPro.TextMeshProUGUI)
+fallenPin;FallenPinsNb (TMPro.TextMeshProUGUI)
+time;0
+timeToOpenItemDrawer;0
+ItemDrawerOpenCount;1
+ObjectPlaced;0
