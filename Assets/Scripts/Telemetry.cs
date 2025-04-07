@@ -45,7 +45,12 @@ public class Telemetry : MonoBehaviour
         {
             outData += ("ressource;" + ressource.name + "\n");
             outData += (ressource.name + "_grabCount;" + ressource.GetComponent<Ressource>().grabCount + "\n");
-            outData += (ressource.name + "_transform;" + ressource.transform + "\n");
+            outData += (ressource.name + "_transform_position_xyz;" + ressource.transform.position.x + 
+                ";" + ressource.transform.position.y + ";" + ressource.transform.position.z + "\n");
+            outData += (ressource.name + "_transform_rotation_xyz;" + ressource.transform.rotation.x + 
+                ";" + ressource.transform.rotation.y + ";" + ressource.transform.rotation.z + "\n");
+            outData += (ressource.name + "_transform_scale_xyz;" + ressource.transform.localScale.x + 
+                ";" + ressource.transform.localScale.y + ";" + ressource.transform.localScale.z + "\n");
 
         }
         string time = System.DateTime.Now.ToString();
