@@ -61,7 +61,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2c8135bcb8bb87e4f97ed250b1a9e16b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.23400003
+      value: -0.17600003
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2c8135bcb8bb87e4f97ed250b1a9e16b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -316,6 +316,7 @@ MonoBehaviour:
   throwForce: 2
   throwTorque: 5
   rollClip: {fileID: 8300000, guid: e21bd16e24d367244b0f4eef5902d083, type: 3}
+  errorClip: {fileID: 8300000, guid: 680345e7d84527443b0fc2eeea3d910a, type: 3}
 --- !u!82 &2615740508744813626
 AudioSource:
   m_ObjectHideFlags: 0
