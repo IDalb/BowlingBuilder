@@ -25,5 +25,7 @@ public class ResetBall : MonoBehaviour
         ball.transform.position = ballSpawn.position;
         ball.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
         ball.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        ball.GetComponent<AudioSource>().Stop(); // arreter le son balle qui roule
+        this.GetComponent<AudioSource>().Play(); // son restart
     }
 }

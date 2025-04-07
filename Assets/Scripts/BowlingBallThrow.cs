@@ -10,6 +10,9 @@ public class BowlingBallThrow : MonoBehaviour
     private XRGrabInteractable grabInteractable;
 
     private GameManager gameManager;
+    
+    [SerializeField] private AudioClip rollClip;
+    private AudioSource audioSource;
 
     //private bool isHeld = false;
     void Start()
@@ -21,6 +24,8 @@ public class BowlingBallThrow : MonoBehaviour
 
         grabInteractable.selectEntered.AddListener(OnGrabStarted);
         grabInteractable.selectExited.AddListener(OnGrabEnded);
+        
+        audioSource = this.GetComponent<AudioSource>();
     }
 
     void FixedUpdate()
@@ -33,17 +38,18 @@ public class BowlingBallThrow : MonoBehaviour
 
     void OnGrabStarted(SelectEnterEventArgs arg0)
     {
-        // Lorsque la boule est attrapée, désactiver la physique (Rigidbody) pour la contrôler manuellement.
+        // Lorsque la boule est attrapï¿½e, dï¿½sactiver la physique (Rigidbody) pour la contrï¿½ler manuellement.
         rb.isKinematic = true;
         gameManager.setIsBallHeld(true);
 
         gameManager.toggleLevelPhysics(false); // desactiver physique quilles
 
+        audioSource.Stop();
     }
 
     void OnGrabEnded(SelectExitEventArgs arg0)
     {
-        // Lorsque la boule est relâchée, activer la physique pour permettre le lancer avec force.
+        // Lorsque la boule est relï¿½chï¿½e, activer la physique pour permettre le lancer avec force.
         rb.isKinematic = false;
         gameManager.setIsBallHeld(false);
 
@@ -67,6 +73,11 @@ public class BowlingBallThrow : MonoBehaviour
 
             gameManager.toggleLevelPhysics(true); // activer physique quilles
 
+            // Son de balle qui roule
+            audioSource.clip = rollClip;
+            audioSource.Play();
+            
+            
             Debug.Log(rb.linearVelocity);
         }
         else
