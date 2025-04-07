@@ -3704,6 +3704,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2067459831100733657, guid: 88cb204c273aacf4a925fa606c70d2bc, type: 3}
+      propertyPath: errorClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 680345e7d84527443b0fc2eeea3d910a, type: 3}
     - target: {fileID: 3907873502100081298, guid: 88cb204c273aacf4a925fa606c70d2bc, type: 3}
       propertyPath: m_Name
       value: BowlingBall

@@ -12,6 +12,8 @@ public class BowlingBallThrow : MonoBehaviour
     private GameManager gameManager;
     
     [SerializeField] private AudioClip rollClip;
+    [SerializeField] private AudioClip errorClip;
+
     private AudioSource audioSource;
 
     //private bool isHeld = false;
@@ -77,7 +79,6 @@ public class BowlingBallThrow : MonoBehaviour
             audioSource.clip = rollClip;
             audioSource.Play();
             
-            
             Debug.Log(rb.linearVelocity);
         }
         else
@@ -85,12 +86,17 @@ public class BowlingBallThrow : MonoBehaviour
             Debug.Log("Go in the start zone");
             
             
-            // boule posee au sol ss mouvement
+            // boule immobile
+            
             rb.angularVelocity = Vector3.zero;
             rb.linearVelocity = Vector3.zero;
 
             rb.isKinematic = true;
 
+            // son erreur
+            audioSource.clip = errorClip;
+            audioSource.Play();
+            
         }
 
     }
