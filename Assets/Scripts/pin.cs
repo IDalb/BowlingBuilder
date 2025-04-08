@@ -13,11 +13,18 @@ public class Pin : MonoBehaviour
 
     private Vector3 initialUp;
 
+    [SerializeField] private AudioClip fallClip;
+    private AudioSource audioSource;
+    private Renderer _renderer;
+
     void Start()
     {
+        _renderer = this.GetComponent<Renderer>();
         scoreManager = FindFirstObjectByType<ScoreManager>();
 
         initialUp = transform.up;
+
+        audioSource = this.GetComponent<AudioSource>();
         
     }
 
@@ -28,8 +35,12 @@ public class Pin : MonoBehaviour
         if (angle > fallenAngleThreshold && !hasFallen)
         {
             hasFallen = true;
+            audioSource.clip = fallClip;
+            audioSource.Play();
+            
+            
             scoreManager.IncreaseFallenPinsNb();
-            this.GetComponent<Renderer>().material = redMaterialRef;
+            _renderer.material = redMaterialRef;
         }
     }
 
