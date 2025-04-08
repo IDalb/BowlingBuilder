@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
@@ -6,6 +7,7 @@ public class BowlingBallThrow : MonoBehaviour
 {
     public float throwForce = 2;  // Force du lancer
     public float throwTorque = 5;  // Force du spin (rotation)
+    [SerializeField] private float headDeviationForce = 0.1f; // Force de déviation en s'inclinant
     private Rigidbody rb;
     private XRGrabInteractable grabInteractable;
 
@@ -34,8 +36,19 @@ public class BowlingBallThrow : MonoBehaviour
     {
         Vector3 velocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
         velocity.Normalize();
+        
+        // Slightly move the ball left or right by tilting the head
+        if (Keyboard.current.gKey.isPressed) {
+            Debug.Log("G pressed");
+            velocity -= Vector3.Cross(velocity, Vector3.up).normalized * headDeviationForce;
+        }
+        else if (Keyboard.current.hKey.isPressed) {
+            Debug.Log("H pressed");
+            velocity += Vector3.Cross(velocity, Vector3.up).normalized * headDeviationForce;
+        }
+        
         velocity *= throwForce;
-        rb.linearVelocity.Set(velocity.x, rb.linearVelocity.y, rb.linearVelocity.z);
+        rb.linearVelocity.Set(velocity.x, rb.linearVelocity.y, velocity.z);
     }
 
     void OnGrabStarted(SelectEnterEventArgs arg0)
