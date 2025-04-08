@@ -1,6 +1,8 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -75,6 +77,25 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    IEnumerator GoToNextLevel()
+    {
+        yield return new WaitForSeconds(10);
+        Scene nextScene = SceneManager.GetSceneByName("level " + levelIndex.ToString());
+
+
+        if (SceneManager.sceneCount < nextScene.buildIndex)
+        {
+            levelIndex++;
+            SceneManager.LoadScene("level " + levelIndex.ToString());
+        }
+        else
+        {
+            SceneManager.LoadScene("Main Menu");
+
+        }
+        // now do something
+    }
+
     public void RemoveFallenPins()
     {
         // On parcourt la liste à l'envers pour éviter des erreurs lors de la suppression
@@ -100,7 +121,9 @@ public class GameManager : MonoBehaviour
                 telemetry.GetComponent<Telemetry>().SaveData();
             }
 #endif
-            SceneManager.LoadScene("level " + levelIndex.ToString());
+            GameObject winMenu = GameObject.FindGameObjectWithTag("MainCamera").transform.Find("WinScreen").gameObject;
+            winMenu.SetActive(true);
+            StartCoroutine(GoToNextLevel());
         }
     }
 

@@ -10,6 +10,8 @@ TagManager:
   - Ground
   - Ressource
   - Telemetry
+  - WinMenu
+  - WinMessage
   layers:
   - Default
   - TransparentFX
