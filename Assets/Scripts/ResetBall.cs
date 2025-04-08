@@ -27,5 +27,9 @@ public class ResetBall : MonoBehaviour
         ball.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         ball.GetComponent<AudioSource>().Stop(); // arreter le son balle qui roule
         this.GetComponent<AudioSource>().Play(); // son restart
+
+        // Remove wind particles
+        if (ball.GetComponent<BowlingBallThrow>() != null)
+            Destroy(ball.GetComponent<BowlingBallThrow>().windParticlesInstance);
     }
 }

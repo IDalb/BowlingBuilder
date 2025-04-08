@@ -315,6 +315,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   throwForce: 2
   throwTorque: 5
+  headTilt: 0
+  headTiltThreshold: {x: 20, y: 35}
+  headDeviationForce: 3
+  windParticles: {fileID: 8000828555962414346, guid: 633eed805bf23804babafdaee5ad9e34, type: 3}
   rollClip: {fileID: 8300000, guid: e21bd16e24d367244b0f4eef5902d083, type: 3}
   errorClip: {fileID: 8300000, guid: 680345e7d84527443b0fc2eeea3d910a, type: 3}
 --- !u!82 &2615740508744813626

@@ -7,11 +7,19 @@ public class BowlingBallThrow : MonoBehaviour
 {
     public float throwForce = 2;  // Force du lancer
     public float throwTorque = 5;  // Force du spin (rotation)
-    [SerializeField] private float headDeviationForce = 0.1f; // Force de déviation en s'inclinant
     private Rigidbody rb;
     private XRGrabInteractable grabInteractable;
 
     private GameManager gameManager;
+    public float headTilt;
+
+    [Space]
+
+    [SerializeField] private Vector2 headTiltThreshold = new Vector2(15f, 35f);  // Angles d'inclinaison min et max de la tête pour lesquels on dévie la boule
+    [SerializeField] private float headDeviationForce = 3f; // Force de déviation en inclinant la tête
+    [SerializeField] private GameObject windParticles;
+    public GameObject windParticlesInstance { get; private set; } = null;
+    [Space]
     
     [SerializeField] private AudioClip rollClip;
     [SerializeField] private AudioClip errorClip;
@@ -30,25 +38,38 @@ public class BowlingBallThrow : MonoBehaviour
         grabInteractable.selectExited.AddListener(OnGrabEnded);
         
         audioSource = this.GetComponent<AudioSource>();
+
+        //if (windParticles != null)
+        //    windParticlesInstance = Instantiate(windParticles, transform.position, transform.rotation);
     }
 
     void FixedUpdate()
     {
         Vector3 velocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
         velocity.Normalize();
-        
-        // Slightly move the ball left or right by tilting the head
-        if (Keyboard.current.gKey.isPressed) {
-            Debug.Log("G pressed");
-            velocity -= Vector3.Cross(velocity, Vector3.up).normalized * headDeviationForce;
-        }
-        else if (Keyboard.current.hKey.isPressed) {
-            Debug.Log("H pressed");
-            velocity += Vector3.Cross(velocity, Vector3.up).normalized * headDeviationForce;
-        }
-        
         velocity *= throwForce;
-        rb.linearVelocity.Set(velocity.x, rb.linearVelocity.y, velocity.z);
+        rb.linearVelocity.Set(velocity.x, rb.linearVelocity.y, rb.linearVelocity.z);
+
+        // Slightly move the ball left or right by tilting the head
+        headTilt = -Camera.main.transform.eulerAngles.z;
+        if (headTilt < -180f) headTilt += 360f;
+        float directionMultiplier = Mathf.Clamp(
+            (Mathf.Abs(headTilt) - headTiltThreshold.x) / (headTiltThreshold.y - headTiltThreshold.x),
+            0f,
+            1f
+        ) * Mathf.Sign(headTilt);
+
+        Vector3 orthogonal = Vector3.Cross(Vector3.up, velocity).normalized;
+        rb.AddForce(orthogonal * headDeviationForce * directionMultiplier);
+
+        // Wind particles
+        if (windParticlesInstance != null)
+        {
+            windParticlesInstance.transform.position = transform.position;
+            windParticlesInstance.transform.rotation = Quaternion.LookRotation(velocity, Vector3.up);
+            windParticlesInstance.SetActive(directionMultiplier != 0);
+            windParticlesInstance.transform.localScale = new Vector3(directionMultiplier * .5f, .5f, .5f);
+        }
     }
 
     void OnGrabStarted(SelectEnterEventArgs arg0)
@@ -91,8 +112,12 @@ public class BowlingBallThrow : MonoBehaviour
             // Son de balle qui roule
             audioSource.clip = rollClip;
             audioSource.Play();
-            
-            Debug.Log(rb.linearVelocity);
+
+            // Initialize wind particles
+            if (windParticles != null)
+                windParticlesInstance = Instantiate(windParticles, transform.position, transform.rotation);
+
+        Debug.Log(rb.linearVelocity);
         }
         else
         {
