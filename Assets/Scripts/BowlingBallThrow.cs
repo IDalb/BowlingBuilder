@@ -74,6 +74,9 @@ public class BowlingBallThrow : MonoBehaviour
 
     void OnGrabStarted(SelectEnterEventArgs arg0)
     {
+        // Si des quilles sont tombées entre-temps, on les efface (permet aussi de checker une fin de partie)
+        FindFirstObjectByType<GameManager>().RemoveFallenPins();
+
         // Lorsque la boule est attrap�e, d�sactiver la physique (Rigidbody) pour la contr�ler manuellement.
         rb.isKinematic = true;
         gameManager.setIsBallHeld(true);

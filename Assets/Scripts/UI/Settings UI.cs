@@ -27,6 +27,7 @@ public class SettingsUI : MonoBehaviour
     public void ResetBallPosition() {
         if (FindAnyObjectByType<ResetBall>() == null) return;
         FindAnyObjectByType<ResetBall>().ResetBallPosition();
+        FindFirstObjectByType<GameManager>().RemoveFallenPins();
     }
 
     public void GoToThrowArea() {
