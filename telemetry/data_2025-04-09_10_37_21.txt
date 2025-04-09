@@ -1,0 +1,13 @@
+level;2
+ballThrow;6
+totalPin;/6
+fallenPin;6
+time;76,58813
+timeToOpenItemDrawer;0
+ItemDrawerOpenCount;0
+ObjectPlaced;1
+ressource;Ramp(Clone)
+Ramp(Clone)_grabCount;8
+Ramp(Clone)_transform_position_xyz;-5,166825;0,3000007;3,85071
+Ramp(Clone)_transform_rotation_xyz;-0,4974097;-0,5025773;-0,5025762
+Ramp(Clone)_transform_scale_xyz;0,7500017;0,7500005;3,000008

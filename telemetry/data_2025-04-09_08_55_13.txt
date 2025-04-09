@@ -1,0 +1,8 @@
+level;1
+ballThrow;1
+totalPin;/6
+fallenPin;1
+time;9,314087
+timeToOpenItemDrawer;7,629547
+ItemDrawerOpenCount;1
+ObjectPlaced;0
