@@ -19,10 +19,14 @@ public class WinMenu : MonoBehaviour
         GameObject winMenu = GameObject.FindGameObjectWithTag("WinMenu");
         GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
 
-        //winMenu.transform.parent.eulerAngles = new Vector3(
-        //winMenu.transform.eulerAngles.x,
-        //camera.transform.eulerAngles.y + 90,
-        //winMenu.transform.eulerAngles.z
-    //); 
+        const float interpolationFactor = 0.005f;
+
+        winMenu.transform.parent.eulerAngles = new Vector3(
+        winMenu.transform.eulerAngles.x,
+        winMenu.transform.eulerAngles.y * (1 - interpolationFactor) + camera.transform.eulerAngles.y * interpolationFactor,
+        winMenu.transform.eulerAngles.z
+      ); 
+        //        winMenu.transform.eulerAngles.x * 0.9f + camera.transform.eulerAngles.y * 0.1f + 90,
+
     }
 }
