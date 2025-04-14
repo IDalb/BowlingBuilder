@@ -19,7 +19,7 @@ public class WinMenu : MonoBehaviour
         GameObject winMenu = GameObject.FindGameObjectWithTag("WinMenu");
         GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
 
-        const float interpolationFactor = 0.005f;
+        const float interpolationFactor = 0.01f;
 
         winMenu.transform.parent.eulerAngles = new Vector3(
         winMenu.transform.eulerAngles.x,

@@ -28,7 +28,6 @@ public class GameManager : MonoBehaviour
 
     private List<Pin> pinsList = new List<Pin>();
 
-
     void Start()
     {
         scoreManager = FindFirstObjectByType<ScoreManager>();
@@ -57,12 +56,22 @@ public class GameManager : MonoBehaviour
 
     public bool toggleLevelPhysics(bool enable)
     {
+        GameObject[] balls = GameObject.FindGameObjectsWithTag("Ball");
+        GameObject[] ressources = GameObject.FindGameObjectsWithTag("Ressource");
         if (enable) 
         {
             // activer la gravité des quilles
             foreach (Pin pin in pinsList)
             {
                 pin.gameObject.layer = LayerMask.NameToLayer("ActivePin");
+            }
+            foreach (GameObject ball in balls)
+            {
+                    ball.gameObject.layer = LayerMask.NameToLayer("Ball");
+            }
+            foreach (GameObject ressource in ressources)
+            {
+                ressource.gameObject.layer = LayerMask.NameToLayer("StaticBlock");
             }
             return true;
         }
@@ -73,6 +82,14 @@ public class GameManager : MonoBehaviour
             {
                 pin.gameObject.layer = LayerMask.NameToLayer("InactivePin");
             }
+            foreach (GameObject ball in balls)
+            {
+                //ball.gameObject.layer = LayerMask.NameToLayer("InactiveBall");     
+            }
+            foreach (GameObject ressource in ressources)
+            {
+                ressource.gameObject.layer = LayerMask.NameToLayer("ConstructionBlock");
+            }
             return false;
         }
     }
@@ -80,10 +97,11 @@ public class GameManager : MonoBehaviour
     IEnumerator GoToNextLevel()
     {
         yield return new WaitForSeconds(10);
-        Scene nextScene = SceneManager.GetSceneByName("level " + levelIndex.ToString());
+        Scene nextScene = SceneManager.GetSceneByName("level " + (levelIndex + 1).ToString());
 
+        int totalScenes = UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings;
 
-        if (SceneManager.sceneCount < nextScene.buildIndex)
+        if (nextScene.buildIndex <= totalScenes)
         {
             levelIndex++;
             SceneManager.LoadScene("level " + levelIndex.ToString());
@@ -121,7 +139,7 @@ public class GameManager : MonoBehaviour
                 telemetry.GetComponent<Telemetry>().SaveData();
             }
 #endif
-            GameObject winMenu = GameObject.FindGameObjectWithTag("MainCamera").transform.Find("WinScreen").gameObject;
+            GameObject winMenu = GameObject.FindGameObjectWithTag("WinMenu").transform.GetChild(0).gameObject;
             winMenu.SetActive(true);
             StartCoroutine(GoToNextLevel());
         }

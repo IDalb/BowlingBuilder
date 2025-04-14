@@ -24,9 +24,9 @@ TagManager:
   - floor
   - ActivePin
   - InactivePin
-  - 
-  - 
-  - 
+  - Player
+  - InactiveBall
+  - StaticBlock
   - 
   - 
   - 
