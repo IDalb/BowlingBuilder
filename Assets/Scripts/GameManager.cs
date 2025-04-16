@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
     public Material neutralMaterialRef;
     public Material highlightedMaterialRef;
 
+    public bool isMainGameManager = true; // niveau tutoriel : 2 gamemanagers
+
     private string playerTag = "MainCamera";
 
     public ScoreManager scoreManager;
@@ -30,20 +32,10 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        scoreManager = FindFirstObjectByType<ScoreManager>();
-
-        GameObject[] pins = GameObject.FindGameObjectsWithTag("Pin");
-        foreach (GameObject pin in pins)
-        {
-            pinsList.Add(pin.GetComponent<Pin>());
-        }
-        scoreManager.setTotalPinsNb(pins.Length);
-
-        ball.GetComponent<XRGrabInteractable>().selectEntered.AddListener(Grab);
-        ball.GetComponent<XRGrabInteractable>().selectExited.AddListener(Release);
-
+        ball.GetComponent<BowlingBallThrow>().registerGameManager(this); // un game manager associeé à chaque bqlle
+        
+        
         Scene currentScene = SceneManager.GetActiveScene();
-
         // Get the name of the current scene
         string sceneName = currentScene.name;
         int index = sceneName.IndexOf(" ") + 1;
@@ -52,6 +44,44 @@ public class GameManager : MonoBehaviour
         {
             levelIndex = int.Parse(levelNumber);
         }
+
+        GameObject[] pins = null;
+
+        // initialyse pins
+        if (isMainGameManager)
+        {
+            pins = GameObject.FindGameObjectsWithTag("Pin");
+            foreach (GameObject pin in pins)
+            {
+                pinsList.Add(pin.GetComponent<Pin>());
+            }
+        }
+        else
+        {
+            pins = GameObject.FindGameObjectsWithTag("Pin2");
+            foreach (GameObject pin in pins)
+            {
+                pinsList.Add(pin.GetComponent<Pin>());
+            }
+        }
+
+
+        // pas de scoreManager dans le niveau tuto
+        if (currentScene.name != "tutorial")
+        {
+            scoreManager = FindFirstObjectByType<ScoreManager>();
+        
+            scoreManager.setTotalPinsNb(pins.Length);
+            
+        }
+
+
+        ball.GetComponent<XRGrabInteractable>().selectEntered.AddListener(Grab);
+        ball.GetComponent<XRGrabInteractable>().selectExited.AddListener(Release);
+
+        
+
+        
     }
 
     public bool toggleLevelPhysics(bool enable)
@@ -129,7 +159,8 @@ public class GameManager : MonoBehaviour
                 pinsList.RemoveAt(i);
             }
         }
-        if(pinsList.Count == 0)
+
+        if(pinsList.Count == 0 && scoreManager)
         {
             levelIndex++;
 #if UNITY_EDITOR
@@ -139,6 +170,7 @@ public class GameManager : MonoBehaviour
                 telemetry.GetComponent<Telemetry>().SaveData();
             }
 #endif
+
             GameObject winMenu = GameObject.FindGameObjectWithTag("WinMenu").transform.GetChild(0).gameObject;
             winMenu.SetActive(true);
             StartCoroutine(GoToNextLevel());
@@ -149,7 +181,7 @@ public class GameManager : MonoBehaviour
     {
         ball.GetComponent<Renderer>().material = neutralMaterialRef;
 
-        if (isInLaunchZone)
+        if (isInLaunchZone && scoreManager)
         {
             scoreManager.IncreaseThrowNumber();
         }

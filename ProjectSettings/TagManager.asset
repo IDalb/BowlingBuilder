@@ -12,6 +12,7 @@ TagManager:
   - Telemetry
   - WinMenu
   - WinMessage
+  - Pin2
   layers:
   - Default
   - TransparentFX
