@@ -229,7 +229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84f6509f3c7fa7b4899c9c767f49e622, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_GazeTransform: {fileID: 0}
+  m_GazeTransform: {fileID: 4084689923090799368}
   m_FacingThreshold: 0.85
   m_FacingEntered:
     m_PersistentCalls:
@@ -1248,6 +1248,11 @@ Transform:
 --- !u!4 &3727128578658385617 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1543070802843469984, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+  m_PrefabInstance: {fileID: 2797717274522334833}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4084689923090799368 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2196849375614954873, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
   m_PrefabInstance: {fileID: 2797717274522334833}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3234343729270641869
