@@ -1,8 +1,0 @@
-level;2
-ballThrow;0
-totalPin;/8
-fallenPin;0
-time;61,56849
-timeToOpenItemDrawer;58,78283
-ItemDrawerOpenCount;1
-ObjectPlaced;0
