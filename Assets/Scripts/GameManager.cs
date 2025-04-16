@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public static int levelIndex = 1;
 
     public GameObject ball;
+    private Vector3 ballRespawnPosition;
 
     public GameObject platform;
     public Material neutralMaterialRef;
@@ -25,8 +26,6 @@ public class GameManager : MonoBehaviour
     public ScoreManager scoreManager;
 
     private bool isInLaunchZone = false;
-    private bool isBallHeld = false;
-    public void setIsBallHeld(bool res) {isBallHeld = res; }
 
     private List<Pin> pinsList = new List<Pin>();
 
@@ -35,7 +34,7 @@ public class GameManager : MonoBehaviour
         ball.GetComponent<BowlingBallThrow>().registerGameManager(this); // un game manager associe� � chaque bqlle
         
         
-        
+        ballRespawnPosition = ball.transform.position; // initialiser position de retour de la balle
 
         GameObject[] pins = null;
 
@@ -68,7 +67,6 @@ public class GameManager : MonoBehaviour
             
         }
 
-        Debug.Log("ici");
         ball.GetComponent<XRGrabInteractable>().selectEntered.AddListener(Grab);
         ball.GetComponent<XRGrabInteractable>().selectExited.AddListener(Release);
 
@@ -84,6 +82,24 @@ public class GameManager : MonoBehaviour
         
     }
 
+    
+    public void ResetBallPosition()
+    /* Fonction permettant de replacer la balle à sa position de départ */
+    {
+        // Replacer la balle
+        ball.transform.position = ballRespawnPosition;
+        // Annuler tout mouvement qu'elle avait
+        ball.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
+        ball.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        ball.GetComponent<AudioSource>().Stop(); // arreter le son balle qui roule
+
+        // Remove wind particles
+        if (ball.GetComponent<BowlingBallThrow>() != null)
+            Destroy(ball.GetComponent<BowlingBallThrow>().windParticlesInstance);
+    }
+    
+    
+    
     public bool toggleLevelPhysics(bool enable)
     {
         GameObject[] balls = GameObject.FindGameObjectsWithTag("Ball");

@@ -73,6 +73,8 @@ public class BowlingBallThrow : MonoBehaviour
             windParticlesInstance.SetActive(directionMultiplier != 0);
             windParticlesInstance.transform.localScale = new Vector3(directionMultiplier * .5f, .5f, .5f);
         }
+        
+        
     }
 
     void OnGrabStarted(SelectEnterEventArgs arg0)
@@ -82,7 +84,6 @@ public class BowlingBallThrow : MonoBehaviour
 
         // Lorsque la boule est attrap�e, d�sactiver la physique (Rigidbody) pour la contr�ler manuellement.
         rb.isKinematic = true;
-        gameManager.setIsBallHeld(true);
 
         gameManager.toggleLevelPhysics(false); // desactiver physique quilles
 
@@ -93,7 +94,6 @@ public class BowlingBallThrow : MonoBehaviour
     {
         // Lorsque la boule est rel�ch�e, activer la physique pour permettre le lancer avec force.
         rb.isKinematic = false;
-        gameManager.setIsBallHeld(false);
 
         // Appliquer la force et la rotation pour le lancer.
         ThrowBall(arg0);
