@@ -162,7 +162,6 @@ public class GameManager : MonoBehaviour
 
         if(pinsList.Count == 0 && scoreManager)
         {
-            levelIndex++;
 #if UNITY_EDITOR
             GameObject telemetry = GameObject.FindGameObjectWithTag("Telemetry");
             if (telemetry)
