@@ -93,6 +93,8 @@ public class GameManager : MonoBehaviour
         ball.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         ball.GetComponent<AudioSource>().Stop(); // arreter le son balle qui roule
 
+        ball.GetComponent<BowlingBallThrow>().setIsBallThrown(false);
+        
         // Remove wind particles
         if (ball.GetComponent<BowlingBallThrow>() != null)
             Destroy(ball.GetComponent<BowlingBallThrow>().windParticlesInstance);

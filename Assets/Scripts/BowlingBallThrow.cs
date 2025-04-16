@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -25,7 +26,12 @@ public class BowlingBallThrow : MonoBehaviour
     [SerializeField] private AudioClip errorClip;
 
     private AudioSource audioSource;
+    
+    // check de la vitesse de la balle (respawn si trop lent)
+    private float timer;
+    public float checkDelay = 2f;
 
+    private bool isBallThrown = false;
 
     public void registerGameManager(GameManager gameManager)
     {
@@ -44,6 +50,11 @@ public class BowlingBallThrow : MonoBehaviour
 
         //if (windParticles != null)
         //    windParticlesInstance = Instantiate(windParticles, transform.position, transform.rotation);
+    }
+
+    public void setIsBallThrown(bool isBallThrown)
+    {
+        this.isBallThrown = isBallThrown;
     }
 
     void FixedUpdate()
@@ -73,12 +84,28 @@ public class BowlingBallThrow : MonoBehaviour
             windParticlesInstance.SetActive(directionMultiplier != 0);
             windParticlesInstance.transform.localScale = new Vector3(directionMultiplier * .5f, .5f, .5f);
         }
-        
+
+        // si la balle est trop lente pdt 10 frames, on la respawn
+        if (isBallThrown)
+        {
+            timer += Time.deltaTime;
+            
+            //Debug.Log(timer + "  " + rb.linearVelocity.magnitude);
+            if (timer >= checkDelay && rb.linearVelocity.magnitude < 0.2)
+            {
+                {
+                    gameManager.ResetBallPosition();
+                    timer = 0;
+                }
+            }
+        }
         
     }
 
     void OnGrabStarted(SelectEnterEventArgs arg0)
     {
+        isBallThrown = false;
+        
         // Si des quilles sont tombées entre-temps, on les efface (permet aussi de checker une fin de partie)
         gameManager.RemoveFallenPins();
 
@@ -103,6 +130,8 @@ public class BowlingBallThrow : MonoBehaviour
     {
         if (gameManager.CanThrowBall())
         {
+            isBallThrown = true;
+            
             // force de lancer
 
             Vector3 throwDirection = arg0.interactorObject.transform.forward;
@@ -123,7 +152,7 @@ public class BowlingBallThrow : MonoBehaviour
             if (windParticles != null)
                 windParticlesInstance = Instantiate(windParticles, transform.position, transform.rotation);
 
-        Debug.Log(rb.linearVelocity);
+            Debug.Log(rb.linearVelocity);
         }
         else
         {
