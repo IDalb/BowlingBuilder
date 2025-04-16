@@ -32,22 +32,14 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        ball.GetComponent<BowlingBallThrow>().registerGameManager(this); // un game manager associeé à chaque bqlle
+        ball.GetComponent<BowlingBallThrow>().registerGameManager(this); // un game manager associeï¿½ ï¿½ chaque bqlle
         
         
-        Scene currentScene = SceneManager.GetActiveScene();
-        // Get the name of the current scene
-        string sceneName = currentScene.name;
-        int index = sceneName.IndexOf(" ") + 1;
-        string levelNumber = sceneName.Substring(index);
-        if (int.Parse(levelNumber) != levelIndex)
-        {
-            levelIndex = int.Parse(levelNumber);
-        }
+        
 
         GameObject[] pins = null;
 
-        // initialyse pins
+        // initialize pins
         if (isMainGameManager)
         {
             pins = GameObject.FindGameObjectsWithTag("Pin");
@@ -67,6 +59,7 @@ public class GameManager : MonoBehaviour
 
 
         // pas de scoreManager dans le niveau tuto
+        Scene currentScene = SceneManager.GetActiveScene();
         if (currentScene.name != "tutorial")
         {
             scoreManager = FindFirstObjectByType<ScoreManager>();
@@ -75,12 +68,19 @@ public class GameManager : MonoBehaviour
             
         }
 
-
+        Debug.Log("ici");
         ball.GetComponent<XRGrabInteractable>().selectEntered.AddListener(Grab);
         ball.GetComponent<XRGrabInteractable>().selectExited.AddListener(Release);
 
         
-
+        // Get the name of the current scene
+        string sceneName = currentScene.name;
+        int index = sceneName.IndexOf(" ") + 1;
+        string levelNumber = sceneName.Substring(index);
+        if (int.Parse(levelNumber) != levelIndex)
+        {
+            levelIndex = int.Parse(levelNumber);
+        }
         
     }
 
@@ -90,7 +90,7 @@ public class GameManager : MonoBehaviour
         GameObject[] ressources = GameObject.FindGameObjectsWithTag("Ressource");
         if (enable) 
         {
-            // activer la gravité des quilles
+            // activer la gravitï¿½ des quilles
             foreach (Pin pin in pinsList)
             {
                 pin.gameObject.layer = LayerMask.NameToLayer("ActivePin");
@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            // gravité des quilles desactivées
+            // gravitï¿½ des quilles desactivï¿½es
             foreach (Pin pin in pinsList)
             {
                 pin.gameObject.layer = LayerMask.NameToLayer("InactivePin");
@@ -146,13 +146,13 @@ public class GameManager : MonoBehaviour
 
     public void RemoveFallenPins()
     {
-        // On parcourt la liste à l'envers pour éviter des erreurs lors de la suppression
+        // On parcourt la liste ï¿½ l'envers pour ï¿½viter des erreurs lors de la suppression
         for (int i = pinsList.Count - 1; i >= 0; i--)
         {
             Pin pin = pinsList[i];
             if (pin.isFallen())
             {
-                // Détruire l'objet pin
+                // Dï¿½truire l'objet pin
                 Destroy(pin.gameObject);
 
                 // Retirer le pin de la liste
@@ -192,11 +192,12 @@ public class GameManager : MonoBehaviour
 
     private void Grab(SelectEnterEventArgs arg0)
     {
+        Debug.Log("Grab detected");
         ball.GetComponent<Renderer>().material = highlightedMaterialRef;
     }
 
 
-    // Détecter quand le joueur entre dans la zone de lancement
+    // Dï¿½tecter quand le joueur entre dans la zone de lancement
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(playerTag))
@@ -208,7 +209,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Détecter quand le joueur sort de la zone de lancement
+    // Dï¿½tecter quand le joueur sort de la zone de lancement
     void OnTriggerExit(Collider other)
     {
         if (other.CompareTag(playerTag))
