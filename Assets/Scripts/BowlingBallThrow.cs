@@ -26,10 +26,13 @@ public class BowlingBallThrow : MonoBehaviour
 
     private AudioSource audioSource;
 
-    //private bool isHeld = false;
+
+    public void registerGameManager(GameManager gameManager)
+    {
+        this.gameManager = gameManager;
+    }
     void Start()
     {
-        gameManager = FindFirstObjectByType<GameManager>();
 
         rb = gameObject.GetComponent<Rigidbody>();
         grabInteractable = GetComponent<XRGrabInteractable>();
@@ -75,7 +78,7 @@ public class BowlingBallThrow : MonoBehaviour
     void OnGrabStarted(SelectEnterEventArgs arg0)
     {
         // Si des quilles sont tombées entre-temps, on les efface (permet aussi de checker une fin de partie)
-        FindFirstObjectByType<GameManager>().RemoveFallenPins();
+        gameManager.RemoveFallenPins();
 
         // Lorsque la boule est attrap�e, d�sactiver la physique (Rigidbody) pour la contr�ler manuellement.
         rb.isKinematic = true;

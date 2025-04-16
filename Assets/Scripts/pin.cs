@@ -38,9 +38,11 @@ public class Pin : MonoBehaviour
             audioSource.clip = fallClip;
             audioSource.Play();
             
-            
-            scoreManager.IncreaseFallenPinsNb();
             _renderer.material = redMaterialRef;
+            
+            if (scoreManager){
+                scoreManager.IncreaseFallenPinsNb();
+            }
         }
     }
 
