@@ -14,8 +14,13 @@ public class WinMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        string plural = "";
+        if(GameObject.FindFirstObjectByType<GameManager>().GetComponent<GameManager>().scoreManager.GetThrowCount() > 1)
+        {
+            plural = "s";
+        }
         dt -= Time.deltaTime;
-        GameObject.FindGameObjectWithTag("WinMessage").GetComponent<TMP_Text>().text = "You won with " + GameObject.FindFirstObjectByType<GameManager>().GetComponent<GameManager>().scoreManager.GetThrowCount() + " throw\nNext level in " + (int)dt + "s";
+        GameObject.FindGameObjectWithTag("WinMessage").GetComponent<TMP_Text>().text = "Vous avez gagné avec " + GameObject.FindFirstObjectByType<GameManager>().GetComponent<GameManager>().scoreManager.GetThrowCount() + " lancé" + plural + "\nProchain niveaux dans " + (int)dt + "s";
         GameObject winMenu = GameObject.FindGameObjectWithTag("WinMenu");
         GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
 
