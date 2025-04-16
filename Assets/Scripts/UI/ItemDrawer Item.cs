@@ -21,9 +21,9 @@ public class ItemDrawerItem : MonoBehaviour
 
     public void InstantiateObject()
     {
-        quantityText.text = item.amount.ToString() + (item.amount <= 1 ? " restant" : " restants");
+        quantityText.text = item.GetAmount().ToString() + (item.GetAmount() <= 1 ? " restant" : " restants");
 
-        if (item.amount <= 0) return;
+        if (item.GetAmount() <= 0) return;
 
         var obj = Instantiate(item.prefab, objectParent);
         if (obj.GetComponent<Rigidbody>() != null)
@@ -51,7 +51,7 @@ public class ItemDrawerItem : MonoBehaviour
         .setEaseOutQuad()
         .setOnUpdate((Vector3 ctx) => { obj.GetComponent<XRGrabInteractable>().SetTargetLocalScale(ctx); });
             
-        item.amount --;
+        item.SetAmount(item.GetAmount() - 1);
         InstantiateObject();
     }
 
@@ -61,5 +61,10 @@ public class ItemDrawerItem : MonoBehaviour
 
         args.interactableObject.transform.gameObject.transform.parent = null;
         args.interactableObject.transform.gameObject.transform.GetComponent<Rigidbody>().isKinematic = false;
+    }
+
+    public void ResetAmount() {
+        item.SetAmount(item.initialAmount);
+        InstantiateObject();
     }
 }

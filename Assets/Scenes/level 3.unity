@@ -4633,6 +4633,14 @@ PrefabInstance:
       propertyPath: items.Array.data[1].amount
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4395505825311812955, guid: b17a57b7c4aad1743a93be6177e22226, type: 3}
+      propertyPath: items.Array.data[0].initialAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4395505825311812955, guid: b17a57b7c4aad1743a93be6177e22226, type: 3}
+      propertyPath: items.Array.data[1].initialAmount
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4686730828132052208, guid: b17a57b7c4aad1743a93be6177e22226, type: 3}
       propertyPath: m_Camera
       value: 
