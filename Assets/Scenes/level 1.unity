@@ -1397,6 +1397,33 @@ PrefabInstance:
       addedObject: {fileID: 1560558582}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad6808fe0e96fae439832d9e62edebcf, type: 3}
+--- !u!114 &628606781 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7413627531010874156, guid: ad6808fe0e96fae439832d9e62edebcf, type: 3}
+  m_PrefabInstance: {fileID: 628606780}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25a07ef133a37d140a87cdf1f1c75fdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &628606782 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 967883107683998684, guid: ad6808fe0e96fae439832d9e62edebcf, type: 3}
+  m_PrefabInstance: {fileID: 628606780}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0924bcaa9eb50df458a783ae0e2b59f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &628606783 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3962605890182075359, guid: ad6808fe0e96fae439832d9e62edebcf, type: 3}
+  m_PrefabInstance: {fileID: 628606780}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &628606784 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6764810568492591269, guid: ad6808fe0e96fae439832d9e62edebcf, type: 3}
@@ -1439,7 +1466,7 @@ PrefabInstance:
     - target: {fileID: 1757421834439059295, guid: b17a57b7c4aad1743a93be6177e22226, type: 3}
       propertyPath: rightHand
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 628606783}
     - target: {fileID: 1757421834439059295, guid: b17a57b7c4aad1743a93be6177e22226, type: 3}
       propertyPath: throwAreaTransform
       value: 
@@ -1463,11 +1490,11 @@ PrefabInstance:
     - target: {fileID: 1757421834439059295, guid: b17a57b7c4aad1743a93be6177e22226, type: 3}
       propertyPath: 'rightHandInteractor.Array.data[0]'
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 628606782}
     - target: {fileID: 1757421834439059295, guid: b17a57b7c4aad1743a93be6177e22226, type: 3}
       propertyPath: 'rightHandInteractor.Array.data[1]'
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 628606781}
     - target: {fileID: 2604597635542245690, guid: b17a57b7c4aad1743a93be6177e22226, type: 3}
       propertyPath: m_Name
       value: UI Menus
