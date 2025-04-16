@@ -21,7 +21,7 @@ public class WinMenu : MonoBehaviour
 
         const float interpolationFactor = 0.01f;
 
-        winMenu.transform.parent.eulerAngles = new Vector3(
+        winMenu.transform.eulerAngles = new Vector3(
         winMenu.transform.eulerAngles.x,
         winMenu.transform.eulerAngles.y * (1 - interpolationFactor) + camera.transform.eulerAngles.y * interpolationFactor,
         winMenu.transform.eulerAngles.z

@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
         string sceneName = currentScene.name;
         int index = sceneName.IndexOf(" ") + 1;
         string levelNumber = sceneName.Substring(index);
-        if (levelNumber != sceneName)
+        if (int.Parse(levelNumber) != levelIndex)
         {
             levelIndex = int.Parse(levelNumber);
         }
