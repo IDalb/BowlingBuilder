@@ -1648,6 +1648,22 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
+    - target: {fileID: 4470587023051931031, guid: 8893e2a9348cd9241be4b07cf0f45e7b, type: 3}
+      propertyPath: m_text
+      value: "Vous avez gagn\xE9 avec 0 lanc\xE9s\nProchain niveaux dans 10s"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4470587023051931031, guid: 8893e2a9348cd9241be4b07cf0f45e7b, type: 3}
+      propertyPath: m_fontSize
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 4470587023051931031, guid: 8893e2a9348cd9241be4b07cf0f45e7b, type: 3}
+      propertyPath: m_margin.y
+      value: -141.86952
+      objectReference: {fileID: 0}
+    - target: {fileID: 4470587023051931031, guid: 8893e2a9348cd9241be4b07cf0f45e7b, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 70
+      objectReference: {fileID: 0}
     - target: {fileID: 6826998136313704361, guid: 8893e2a9348cd9241be4b07cf0f45e7b, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
