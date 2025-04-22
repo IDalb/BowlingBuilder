@@ -8,7 +8,7 @@
   - Layers:
     - Default, TransparentFX, Ignore Raycast, Water, UI, ConstructionBlock, Ball, floor, ActivePin, InactivePin, Player, InactiveBall, StaticBlock
 - Active game object:
-  - Name: Wind Particles(Clone)
+  - Name: Ground (1)
   - Tag: Untagged
   - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
