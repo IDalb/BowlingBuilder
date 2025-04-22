@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Tiled Planks
+  m_Name: Carpet
   m_Shader: {fileID: -6465566751694194690, guid: 1aa85d9ad99bf174581856c4b53218ba, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -42,19 +42,19 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SideTexture:
-        m_Texture: {fileID: 2800000, guid: ccad2f0bd98f553449ca5fdd7924fbe0, type: 3}
+        m_Texture: {fileID: 2800000, guid: f0c8094e0e464714a839b609ba74c0b4, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TopNormalMap:
-        m_Texture: {fileID: 2800000, guid: 771d8a58ca9c77b47a5729697f97a50a, type: 3}
+        m_Texture: {fileID: 2800000, guid: 98ae08bb818f2034c82933a574f7efe1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TopNormalMap_1:
-        m_Texture: {fileID: 2800000, guid: ccad681da3501284eb30bd9d0ea1b421, type: 3}
+        m_Texture: {fileID: 2800000, guid: 98ae08bb818f2034c82933a574f7efe1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TopTexture:
-        m_Texture: {fileID: 2800000, guid: 2cd12808fbe89ff4f83dec5f3ea4abf9, type: 3}
+        m_Texture: {fileID: 2800000, guid: f0c8094e0e464714a839b609ba74c0b4, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -82,13 +82,11 @@ Material:
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Side_Metallic: 0
-    - _Side_Saturation: 1
-    - _Side_Smoothness: 0.3
+    - _Side_Smoothness: 0.13
     - _SrcBlend: 1
     - _Surface: 0
     - _TopBottom_Metallic: 0
-    - _TopBottom_Saturation: 1.2
-    - _TopBottom_Smoothness: 0.5
+    - _TopBottom_Smoothness: 0.138
     - _WorkflowMode: 0
     - _ZTest: 4
     - _ZWrite: 1

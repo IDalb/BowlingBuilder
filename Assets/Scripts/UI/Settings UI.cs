@@ -27,7 +27,7 @@ public class SettingsUI : MonoBehaviour
     public void ResetBallPosition() {
         if (FindAnyObjectByType<ResetBall>() == null) return;
         
-        GameManager[] gameManagers = FindObjectsOfType<GameManager>();
+        GameManager[] gameManagers = FindObjectsByType<GameManager>(FindObjectsSortMode.None);
         foreach (GameManager gameManager in gameManagers)
         {
             gameManager.ResetBallPosition();
