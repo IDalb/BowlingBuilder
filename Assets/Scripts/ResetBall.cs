@@ -4,13 +4,10 @@ public class ResetBall : MonoBehaviour
 {
     public GameManager gameManager;
 
-    private void Start()
-    {
-    }
-    
     private void OnTriggerEnter(Collider other)
+    /* Detecte collisions de la balle dans la zone de respawn */
     {
-        
+
         if (!other.CompareTag("Ball")) return;
         
         gameManager.ResetBallPosition();

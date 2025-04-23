@@ -15,12 +15,6 @@ public class Telemetry : MonoBehaviour
         itemDrawerChrono.StartChrono();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void SaveData()
     {
         globalChrono.StopChrono();
@@ -67,6 +61,7 @@ public class Telemetry : MonoBehaviour
     }
 
     public void SetItemDrawerOpen()
+    // Compte de nb d'ouvertures du tiroir à objet
     {
         itemDrawerOpenCount++;
         if (itemDrawerChrono.isRunning)
