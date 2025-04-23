@@ -20,7 +20,7 @@ public class WinMenu : MonoBehaviour
             plural = "s";
         }
         dt -= Time.deltaTime;
-        GameObject.FindGameObjectWithTag("WinMessage").GetComponent<TMP_Text>().text = "Vous avez gagné avec " + GameObject.FindFirstObjectByType<GameManager>().GetComponent<GameManager>().scoreManager.GetThrowCount() + " lancé" + plural + "\nProchain niveaux dans " + (int)dt + "s";
+        GameObject.FindGameObjectWithTag("WinMessage").GetComponent<TMP_Text>().text = "Vous avez gagné avec " + GameObject.FindFirstObjectByType<GameManager>().GetComponent<GameManager>().scoreManager.GetThrowCount() + " lancé" + plural + "\nProchain niveau dans " + (int)dt + "s";
         GameObject winMenu = GameObject.FindGameObjectWithTag("WinMenu");
         GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
 

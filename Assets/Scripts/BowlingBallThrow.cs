@@ -113,6 +113,7 @@ public class BowlingBallThrow : MonoBehaviour
         rb.isKinematic = true;
 
         gameManager.toggleLevelPhysics(false); // desactiver physique quilles
+        gameManager.toggleMoveBlock(false);
 
         audioSource.Stop();
     }
@@ -121,7 +122,7 @@ public class BowlingBallThrow : MonoBehaviour
     {
         // Lorsque la boule est rel�ch�e, activer la physique pour permettre le lancer avec force.
         rb.isKinematic = false;
-
+        gameManager.toggleMoveBlock(true);
         // Appliquer la force et la rotation pour le lancer.
         ThrowBall(arg0);
     }
@@ -143,6 +144,7 @@ public class BowlingBallThrow : MonoBehaviour
             // rb.AddForceAtPosition(-arg0.interactorObject.transform.up * throwTorque, downPosition, ForceMode.Force);
 
             gameManager.toggleLevelPhysics(true); // activer physique quilles
+            gameManager.toggleMoveBlock(false);
 
             // Son de balle qui roule
             audioSource.clip = rollClip;

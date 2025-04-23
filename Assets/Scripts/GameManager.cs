@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour
         string sceneName = currentScene.name;
         int index = sceneName.IndexOf(" ") + 1;
         string levelNumber = sceneName.Substring(index);
-        if (int.Parse(levelNumber) != levelIndex)
+        if (levelNumber != sceneName && int.Parse(levelNumber) != levelIndex)
         {
             levelIndex = int.Parse(levelNumber);
         }
@@ -94,18 +94,39 @@ public class GameManager : MonoBehaviour
         ball.GetComponent<AudioSource>().Stop(); // arreter le son balle qui roule
 
         ball.GetComponent<BowlingBallThrow>().setIsBallThrown(false);
-        
+
+        toggleMoveBlock(true);
+
         // Remove wind particles
         if (ball.GetComponent<BowlingBallThrow>() != null)
             Destroy(ball.GetComponent<BowlingBallThrow>().windParticlesInstance);
     }
-    
-    
+
+    public bool toggleMoveBlock(bool enable)
+    {
+        GameObject[] ressources = GameObject.FindGameObjectsWithTag("Ressource");
+
+        if (enable)
+        {
+            foreach (GameObject ressource in ressources)
+            {
+                ressource.gameObject.layer = LayerMask.NameToLayer("ConstructionBlock");
+            }
+            return true;
+        }
+        else
+        {
+            foreach (GameObject ressource in ressources)
+            {
+                ressource.gameObject.layer = LayerMask.NameToLayer("StaticBlock");
+            }
+            return false;
+        }
+    }
     
     public bool toggleLevelPhysics(bool enable)
     {
         GameObject[] balls = GameObject.FindGameObjectsWithTag("Ball");
-        GameObject[] ressources = GameObject.FindGameObjectsWithTag("Ressource");
         if (enable) 
         {
             // activer la gravit� des quilles
@@ -116,10 +137,6 @@ public class GameManager : MonoBehaviour
             foreach (GameObject ball in balls)
             {
                     ball.gameObject.layer = LayerMask.NameToLayer("Ball");
-            }
-            foreach (GameObject ressource in ressources)
-            {
-                ressource.gameObject.layer = LayerMask.NameToLayer("StaticBlock");
             }
             return true;
         }
@@ -134,10 +151,6 @@ public class GameManager : MonoBehaviour
             {
                 //ball.gameObject.layer = LayerMask.NameToLayer("InactiveBall");     
             }
-            foreach (GameObject ressource in ressources)
-            {
-                ressource.gameObject.layer = LayerMask.NameToLayer("ConstructionBlock");
-            }
             return false;
         }
     }
@@ -149,7 +162,7 @@ public class GameManager : MonoBehaviour
 
         int totalScenes = UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings;
 
-        if (nextScene.buildIndex <= totalScenes)
+        if (nextScene.buildIndex <= totalScenes && nextScene.buildIndex > 0)
         {
             levelIndex++;
             SceneManager.LoadScene("level " + levelIndex.ToString());

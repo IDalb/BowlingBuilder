@@ -18,7 +18,7 @@ public class SettingsUI : MonoBehaviour
         GameObject telemetry = GameObject.FindGameObjectWithTag("Telemetry");
         if (telemetry)
         {
-            telemetry.GetComponent<Telemetry>().SaveData();
+            //telemetry.GetComponent<Telemetry>().SaveData();
         }
 #endif
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
@@ -50,7 +50,7 @@ public class SettingsUI : MonoBehaviour
         GameObject telemetry = GameObject.FindGameObjectWithTag("Telemetry");
         if (telemetry)
         {
-            telemetry.GetComponent<Telemetry>().SaveData();
+            //telemetry.GetComponent<Telemetry>().SaveData();
         }
 #endif
         FadeUI.Instance.Fade(true);

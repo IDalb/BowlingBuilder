@@ -2486,6 +2486,14 @@ PrefabInstance:
       propertyPath: items.Array.data[0].amount
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4395505825311812955, guid: b17a57b7c4aad1743a93be6177e22226, type: 3}
+      propertyPath: items.Array.data[0].initialAmount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4395505825311812955, guid: b17a57b7c4aad1743a93be6177e22226, type: 3}
+      propertyPath: items.Array.data[1].initialAmount
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4686730828132052208, guid: b17a57b7c4aad1743a93be6177e22226, type: 3}
       propertyPath: m_Camera
       value: 
@@ -4040,8 +4048,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Combine tous ces \xE9l\xE9ments pour compl\xE9ter les niveaux avec le
-    moins de lancers possibles!\n\nMaintenant, retourne au menu en appuyant sur A/X,
-    et d\xE9marre le niveau 1"
+    moins de lancers possibles!\n\nMaintenant, retourne au menu en appuyant sur \"Param\xE8tres\"
+    (touche A/X), et d\xE9marre le niveau 1"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5848,8 +5856,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Manipule ces objets avec les gachettes int\xE9rieures. Tu peux les d\xE9pacer
-    et les redimentionner avec tes deux mains.\n\nTu peux en sortir \xE0 partir de
-    ton tiroir \xE0 formes pour d\xE9vier la trajectoire de la balle (touche B/Y)\n"
+    et les redimensionner avec tes deux mains.\n\nTu peux en sortir \xE0 partir de
+    ton tiroir \xE0 formes (touche B/Y) pour d\xE9vier la trajectoire de la balle."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
