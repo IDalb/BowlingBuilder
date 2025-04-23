@@ -43,13 +43,12 @@ public class BowlingBallThrow : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody>();
         grabInteractable = GetComponent<XRGrabInteractable>();
 
+        // ecouteurs quand la balle est attrapée/relâchée
         grabInteractable.selectEntered.AddListener(OnGrabStarted);
         grabInteractable.selectExited.AddListener(OnGrabEnded);
         
         audioSource = this.GetComponent<AudioSource>();
 
-        //if (windParticles != null)
-        //    windParticlesInstance = Instantiate(windParticles, transform.position, transform.rotation);
     }
 
     public void setIsBallThrown(bool isBallThrown)
@@ -90,7 +89,6 @@ public class BowlingBallThrow : MonoBehaviour
         {
             timer += Time.deltaTime;
             
-            //Debug.Log(timer + "  " + rb.linearVelocity.magnitude);
             if (timer >= checkDelay && rb.linearVelocity.magnitude < 0.2)
             {
                 {
@@ -141,7 +139,6 @@ public class BowlingBallThrow : MonoBehaviour
             Vector3 topPosition = transform.position + Vector3.up * rb.transform.localScale.y;  // Top is in the +Y direction from the center of the sphere
             Vector3 downPosition = transform.position - Vector3.up * rb.transform.localScale.y;  // Top is in the +Y direction from the center of the sphere
             rb.AddForceAtPosition(arg0.interactorObject.transform.up * throwTorque, topPosition, ForceMode.Force);
-            // rb.AddForceAtPosition(-arg0.interactorObject.transform.up * throwTorque, downPosition, ForceMode.Force);
 
             gameManager.toggleLevelPhysics(true); // activer physique quilles
             gameManager.toggleMoveBlock(false);

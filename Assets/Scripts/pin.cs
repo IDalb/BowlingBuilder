@@ -9,10 +9,11 @@ public class Pin : MonoBehaviour
 
     private float fallenAngleThreshold = 15f; // Angle à partir duquel une quille est considérée comme tombée
 
-    public Material redMaterialRef;
+    public Material redMaterialRef; // materiau rouge
 
-    private Vector3 initialUp;
+    private Vector3 initialUp; // vecteur qui pointe vers le ciel
 
+    // audio
     [SerializeField] private AudioClip fallClip;
     private AudioSource audioSource;
     private Renderer _renderer;
@@ -29,6 +30,7 @@ public class Pin : MonoBehaviour
     }
 
     private void Update()
+    /* Update pour verifier si la quille est tombée, appelé à chaque frame */
     {
         float angle = Vector3.Angle(initialUp, transform.up);
         

@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
+/* Classe qui gère l'UI pour le score */
 {
     public TMP_Text throwsNbText;
     public TMP_Text fallenPinsNbText;

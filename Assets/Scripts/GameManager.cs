@@ -30,15 +30,14 @@ public class GameManager : MonoBehaviour
     private List<Pin> pinsList = new List<Pin>();
 
     void Start()
-    {
-        ball.GetComponent<BowlingBallThrow>().registerGameManager(this); // un game manager associe� � chaque bqlle
-        
+    { 
+        ball.GetComponent<BowlingBallThrow>().registerGameManager(this);// un game manager par balle  
         
         ballRespawnPosition = ball.transform.position; // initialiser position de retour de la balle
 
         GameObject[] pins = null;
 
-        // initialize pins
+        // initialiser pins
         if (isMainGameManager)
         {
             pins = GameObject.FindGameObjectsWithTag("Pin");
@@ -47,6 +46,7 @@ public class GameManager : MonoBehaviour
                 pinsList.Add(pin.GetComponent<Pin>());
             }
         }
+        // Dans le cas ou il y a deux gamemanager (niveau tuto)
         else
         {
             pins = GameObject.FindGameObjectsWithTag("Pin2");
@@ -57,21 +57,20 @@ public class GameManager : MonoBehaviour
         }
 
 
-        // pas de scoreManager dans le niveau tuto
         Scene currentScene = SceneManager.GetActiveScene();
+        // pas de scoreManager dans le niveau tuto
         if (currentScene.name != "tutorial")
         {
             scoreManager = FindFirstObjectByType<ScoreManager>();
-        
             scoreManager.setTotalPinsNb(pins.Length);
-            
         }
 
+        // ecouteurs qudn la balle est attrapee/relachee
         ball.GetComponent<XRGrabInteractable>().selectEntered.AddListener(Grab);
         ball.GetComponent<XRGrabInteractable>().selectExited.AddListener(Release);
 
         
-        // Get the name of the current scene
+        // Nom du niveau
         string sceneName = currentScene.name;
         int index = sceneName.IndexOf(" ") + 1;
         string levelNumber = sceneName.Substring(index);
@@ -97,12 +96,13 @@ public class GameManager : MonoBehaviour
 
         toggleMoveBlock(true);
 
-        // Remove wind particles
+        // Enlever les particules de vent
         if (ball.GetComponent<BowlingBallThrow>() != null)
             Destroy(ball.GetComponent<BowlingBallThrow>().windParticlesInstance);
     }
 
     public bool toggleMoveBlock(bool enable)
+    /* Fonction pour la gestion de la physique des blocs */
     {
         GameObject[] ressources = GameObject.FindGameObjectsWithTag("Ressource");
 
@@ -125,6 +125,7 @@ public class GameManager : MonoBehaviour
     }
     
     public bool toggleLevelPhysics(bool enable)
+    /* Fonction pour la gestion de la physique du niveau */
     {
         GameObject[] balls = GameObject.FindGameObjectsWithTag("Ball");
         if (enable) 
@@ -134,10 +135,7 @@ public class GameManager : MonoBehaviour
             {
                 pin.gameObject.layer = LayerMask.NameToLayer("ActivePin");
             }
-            foreach (GameObject ball in balls)
-            {
-                    ball.gameObject.layer = LayerMask.NameToLayer("Ball");
-            }
+            
             return true;
         }
         else
@@ -147,15 +145,12 @@ public class GameManager : MonoBehaviour
             {
                 pin.gameObject.layer = LayerMask.NameToLayer("InactivePin");
             }
-            foreach (GameObject ball in balls)
-            {
-                //ball.gameObject.layer = LayerMask.NameToLayer("InactiveBall");     
-            }
             return false;
         }
     }
 
     IEnumerator GoToNextLevel()
+    /* Fonction pour changer de niveau */
     {
         yield return new WaitForSeconds(10);
         Scene nextScene = SceneManager.GetSceneByName("level " + (levelIndex + 1).ToString());
@@ -172,10 +167,10 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene("Main Menu");
 
         }
-        // now do something
     }
 
     public void RemoveFallenPins()
+    // Retirer les quilles du terrain
     {
         // On parcourt la liste � l'envers pour �viter des erreurs lors de la suppression
         for (int i = pinsList.Count - 1; i >= 0; i--)
@@ -208,6 +203,7 @@ public class GameManager : MonoBehaviour
     }
 
     private void Release(SelectExitEventArgs arg0)
+    /* Quand on lache la balle */
     {
         ball.GetComponent<Renderer>().material = neutralMaterialRef;
 
@@ -222,14 +218,15 @@ public class GameManager : MonoBehaviour
     }
 
     private void Grab(SelectEnterEventArgs arg0)
+    /* Quand on attrape la balle */
     {
         Debug.Log("Grab detected");
         ball.GetComponent<Renderer>().material = highlightedMaterialRef;
     }
 
 
-    // D�tecter quand le joueur entre dans la zone de lancement
     void OnTriggerEnter(Collider other)
+    // D�tecter quand le joueur entre dans la zone de lancement
     {
         if (other.CompareTag(playerTag))
         {
@@ -240,8 +237,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // D�tecter quand le joueur sort de la zone de lancement
     void OnTriggerExit(Collider other)
+    // D�tecter quand le joueur sort de la zone de lancement
     {
         if (other.CompareTag(playerTag))
         {

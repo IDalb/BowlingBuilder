@@ -14,6 +14,7 @@ public class WinMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // message de victoire avec nb de lancés
         string plural = "";
         if(GameObject.FindFirstObjectByType<GameManager>().GetComponent<GameManager>().scoreManager.GetThrowCount() > 1)
         {
@@ -21,9 +22,11 @@ public class WinMenu : MonoBehaviour
         }
         dt -= Time.deltaTime;
         GameObject.FindGameObjectWithTag("WinMessage").GetComponent<TMP_Text>().text = "Vous avez gagné avec " + GameObject.FindFirstObjectByType<GameManager>().GetComponent<GameManager>().scoreManager.GetThrowCount() + " lancé" + plural + "\nProchain niveau dans " + (int)dt + "s";
+        
         GameObject winMenu = GameObject.FindGameObjectWithTag("WinMenu");
         GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
 
+        // Avoir l'ecran de victoire qui suit la camera
         const float interpolationFactor = 0.01f;
 
         winMenu.transform.eulerAngles = new Vector3(
@@ -31,7 +34,6 @@ public class WinMenu : MonoBehaviour
         winMenu.transform.eulerAngles.y * (1 - interpolationFactor) + camera.transform.eulerAngles.y * interpolationFactor,
         winMenu.transform.eulerAngles.z
       ); 
-        //        winMenu.transform.eulerAngles.x * 0.9f + camera.transform.eulerAngles.y * 0.1f + 90,
 
     }
 }
