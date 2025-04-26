@@ -145,6 +145,7 @@ public class BowlingBallThrow : MonoBehaviour
 
             // Son de balle qui roule
             audioSource.clip = rollClip;
+            audioSource.loop = true;
             audioSource.Play();
 
             // Initialize wind particles
@@ -167,6 +168,7 @@ public class BowlingBallThrow : MonoBehaviour
 
             // son erreur
             audioSource.clip = errorClip;
+            audioSource.loop = false;
             audioSource.Play();
             
         }

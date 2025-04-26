@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -59,7 +57,7 @@ public class GameManager : MonoBehaviour
 
         Scene currentScene = SceneManager.GetActiveScene();
         // pas de scoreManager dans le niveau tuto
-        if (currentScene.name != "tutorial")
+        if (currentScene.name != "Tutorial")
         {
             scoreManager = FindFirstObjectByType<ScoreManager>();
             scoreManager.setTotalPinsNb(pins.Length);
@@ -153,20 +151,19 @@ public class GameManager : MonoBehaviour
     /* Fonction pour changer de niveau */
     {
         yield return new WaitForSeconds(10);
-        Scene nextScene = SceneManager.GetSceneByName("level " + (levelIndex + 1).ToString());
 
-        int totalScenes = UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings;
-
-        if (nextScene.buildIndex <= totalScenes && nextScene.buildIndex > 0)
-        {
-            levelIndex++;
-            SceneManager.LoadScene("level " + levelIndex.ToString());
+        int newSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+        
+        if (newSceneIndex < 0 || newSceneIndex >= SceneManager.sceneCountInBuildSettings) {
+            newSceneIndex = 0;
         }
+
+        string nextSceneName = System.IO.Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(newSceneIndex));
+        
+        if (nextSceneName.StartsWith("Level "))
+            SceneManager.LoadScene(nextSceneName);
         else
-        {
             SceneManager.LoadScene("Main Menu");
-
-        }
     }
 
     public void RemoveFallenPins()
