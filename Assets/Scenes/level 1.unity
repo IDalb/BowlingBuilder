@@ -2595,7 +2595,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9101551893647997467, guid: 48a904e0de8fe774fa4ac424a70e0313, type: 3}
       propertyPath: m_Name
-      value: ResetZone 1
+      value: ResetZone
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
