@@ -10,3 +10,6 @@ Unity 6000.0.30
 * Isaac ALBERTO
 * Héléna BARBILLON
 * Lucas GONON
+
+## Itch.io page
+https://hel88.itch.io/bowling-builder
